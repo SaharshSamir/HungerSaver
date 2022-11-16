@@ -1,5 +1,5 @@
-import { router, publicProcedure, protectedProcedure } from "../trpc";
-import { prisma } from "../../db/client";
+import { router, publicProcedure, protectedProcedure } from "@server/trpc/trpc";
+import { prisma } from "@server/db/client";
 
 export const authRouter = router({
   getSession: publicProcedure.query(({ ctx }) => {

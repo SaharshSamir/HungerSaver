@@ -1,8 +1,9 @@
 import { User, VolunteerRequest } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { trpc } from "../../utils/trpc";
+import { trpc } from "@utils/trpc";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -42,13 +43,10 @@ interface DataProps {
 }
 
 const SingleReq = ({ data }: DataProps) => {
-  const image = fetch(data.documennt || "").then((r) => {
-    console.log(r);
-  });
   return (
     <div className="border-slate-600 p-2">
       <p>user: {JSON.stringify(data.user)}</p>
-      <img src={data.documennt || ""} alt="doc" />
+      <Image src={data.documennt || ""} alt="doc" width={100} height={100} />
     </div>
   );
 };

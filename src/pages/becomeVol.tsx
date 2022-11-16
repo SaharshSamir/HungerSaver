@@ -1,5 +1,5 @@
-import Navbar from "../components/layouts/navbar";
-import VolunteerReqUpload from "../components/volunteerReqUpload";
+import VolunteerReqUpload from "@components/volunteerReqUpload";
+import Navbar from "@components/layouts/navbar";
 
 const Volunteer = () => {
   return (

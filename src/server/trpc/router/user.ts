@@ -1,5 +1,5 @@
 import {z} from "zod";
-import { router, publicProcedure, protectedProcedure } from "../trpc";
+import { router, publicProcedure, protectedProcedure } from "@server/trpc/trpc";
 
 export const userRouter = router({
   newVolunteerReq: publicProcedure
