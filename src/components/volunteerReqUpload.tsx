@@ -37,14 +37,15 @@ const VolunteerReqUpload: React.FC = () => {
         method: "POST",
         body: formData,
       }
-    ).then((r) => {
+    ).then(async (r) => {
       //TODO: useQuery to make a new VolunteerRequest in the DB
-      if (r.url) {
+      const res = await r.json();
+
+      if (res.secure_url) {
         mutate({
-          url: r.url,
+          url: res.secure_url,
         });
       }
-      console.log(r.url);
     });
     if (data) {
       alert(`success, ig ${JSON.stringify(data)}`);

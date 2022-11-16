@@ -27,7 +27,9 @@ export const userRouter = router({
     }
     return "NOT_OK"
   }),
-  getSecretMessage: protectedProcedure.query(() => {
-    return "You are logged in and can see this secret message!";
+  getVolunteerReqs: protectedProcedure.query(async({ctx}) => {
+    const {prisma} = ctx;
+    const volReqs = await prisma.volunteerRequest.findMany({include: {user: true}});
+    return volReqs;
   }),
 });
