@@ -65,40 +65,45 @@ const Donate = () => {
   return (
     <>
       <p className="text-4xl ">Donate Food</p>
-      <form className="flex flex-col w-40" onSubmit={handleSubmit(onSubmit)}>
-        <label>Name</label>
-        <input
-          className="border-2 border-solid border-slate-600"
-          {...register("name")}
-        />
-        <label>Expiry</label>
-        <input
-          className="border-2 border-solid border-slate-600"
-          type="date"
-          {...register("expiry")}
-        />
-        <label>Quantity</label>
-        <input
-          className="border-2 border-solid border-slate-600"
-          {...register("quantity")}
-        />
-        <label>Address</label>
-        <input
-          className="border-2 border-solid border-slate-600"
-          {...register("address")}
-        />
-        <label>Contact</label>
-        <input
-          className="border-2 border-solid border-slate-600"
-          {...register("contact")}
-        />
-        <label>Food Type</label>
-        <input
-          className="border-2 border-solid border-slate-600"
-          {...register("foodType")}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <div className="w-full flex justify-center items-center">
+        <form className="flex flex-col w-4/6 justify-center items-center" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            type="text"
+            placeholder="Name"
+            className="input input-bordered w-full max-w-xs my-2"
+            {...register("name")}
+          />
+          <input
+            className="input input-bordered w-full max-w-xs my-2"
+            type="date"
+            {...register("expiry")}
+          />
+          <input
+            type="text"
+            placeholder="Quantity"
+            className="input input-bordered w-full max-w-xs my-2"
+            {...register("quantity")}
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            className="input input-bordered w-full max-w-xs my-2"
+            {...register("address")}
+          />
+          <input
+            type="text"
+            placeholder="Contact"
+            className="input input-bordered w-full max-w-xs my-2"
+            {...register("contact")}
+          />
+          <select className="select select-bordered w-full max-w-xs my-2" {...register("foodType")}>
+            <option disabled selected>Food Type</option>
+            <option value="VEG">Veg</option>
+            <option value="NON_VEG">Non Veg</option>
+          </select>
+          <button className="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
     </>
   );
 };
