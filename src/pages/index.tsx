@@ -4,12 +4,14 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Donations from "@components/Donations";
 
 import { trpc } from "@utils/trpc";
+import Navbar from "@components/layouts/navbar";
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
 
   return (
     <>
+      <Navbar />
       <AuthShowcase />
       <Link href="/becomeVol">
         <button

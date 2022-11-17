@@ -15,23 +15,27 @@ const Navbar = () => {
     image: session.data?.user?.image ?? "",
   };
   return (
-    <>
-      <div className="flex w-full justify-between bg-green-800">
+    <div className=" p-4 bg-green-800">
+      <div className="flex w-full justify-between ">
         <div className="">Hunger Saver</div>
         <div className="">
           {session.data?.user ? <AuthedNavItems user={user} /> : ""}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 const AuthedNavItems = ({ user }: { user: User }) => {
   return (
-    <>
+    <div className="flex">
       <div>{user.name}</div>
-      <Image src={user.image} alt="profile image" width={100} height={100} />
-    </>
+      <div className="avatar">
+        <div className="w-16 rounded-full">
+          <Image src={user.image} alt="profile image" width={75} height={75} />
+        </div>
+      </div>
+    </div>
   );
 };
 

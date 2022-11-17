@@ -17,7 +17,10 @@ const Donations = () => {
 };
 
 const Donation = ({ donation }: { donation: any }) => {
-  return <>{JSON.stringify(donation)}</>;
+  return <>
+    {JSON.stringify(donation)}
+    <button className="btn btn-primary">button</button>
+  </>;
 };
 
 export default Donations;
