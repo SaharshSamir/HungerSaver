@@ -38,7 +38,6 @@ const VolunteerReqUpload: React.FC = () => {
         body: formData,
       }
     ).then(async (r) => {
-      //TODO: useQuery to make a new VolunteerRequest in the DB
       const res = await r.json();
 
       if (res.secure_url) {

@@ -1,6 +1,7 @@
-import {z} from "zod";
+import {date, string, z} from "zod";
 import { router, publicProcedure, protectedProcedure } from "@server/trpc/trpc";
-
+import { FoodType } from "@prisma/client";
+const FoodTypeArray = Object.keys(FoodType).filter((v) => isNaN(Number(v)));
 export const userRouter = router({
   //create a new volunteer request
   newVolunteerReq: publicProcedure
@@ -67,5 +68,41 @@ export const userRouter = router({
 
     return "DONE";
 
+  }),
+  //DONATIONS
+  //create new donation
+  newDonation: protectedProcedure
+  .input(z.object({
+    name: z.string(),
+    expiry: z.date(),
+    quantity: z.string(),
+    address: z.string(),
+    contact: z.string(),
+    foodType: z.nativeEnum(FoodType),
+  }))
+  .mutation(async ({ctx, input}) => {
+    const {prisma, session} = ctx;
+    const user = await prisma.user.findFirst({
+      where: {
+        email: session.user.email
+      }
+    });
+
+    const newDonation = await prisma.donation.create({
+      data: {
+        name: input.name,
+        expiry: input.expiry,
+        quantity: input.quantity,
+        address: input.address,
+        contact: input.contact,
+        foodType: input.foodType,
+        User: {
+          connect: {id: user?.id}
+        }
+      },
+    })
+
+    if(newDonation) return "OK"
+    return "NOT_OK";
   })
 });
