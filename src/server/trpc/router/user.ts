@@ -104,5 +104,13 @@ export const userRouter = router({
 
     if(newDonation) return "OK"
     return "NOT_OK";
+  }),
+  getDonations: protectedProcedure
+  .query(async ({ctx}) => {
+    const {prisma} = ctx;
+    const donations = await prisma.donation.findMany();  
+
+    if(donations.length === 0) return [];
+    return donations;
   })
 });
