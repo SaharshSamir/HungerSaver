@@ -1,4 +1,4 @@
-import { User, VolunteerRequest } from "@prisma/client";
+import type { User, VolunteerRequest } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -13,9 +13,12 @@ const Dashboard = () => {
     if (data?.type && data?.type !== "ADMIN") {
       router.push("/");
     }
-  }, []);
+  }, [data?.type, router]);
   if (!session.data?.user) return;
   console.log(data);
+  if (isLoading) {
+    return <p className="text-4xl">Loading...</p>;
+  }
   return (
     <>
       <p>Dashboard</p>
@@ -25,7 +28,10 @@ const Dashboard = () => {
 };
 
 const VolunteerRequests = () => {
-  const { data } = trpc.user.getVolunteerReqs.useQuery();
+  const { data, isLoading } = trpc.user.getVolunteerReqs.useQuery();
+  if (isLoading) {
+    return <p className="text-4xl">Loading...</p>;
+  }
   return (
     <>
       <p>somethihg</p>
@@ -43,10 +49,24 @@ interface DataProps {
 }
 
 const SingleReq = ({ data }: DataProps) => {
+  const { mutate } = trpc.user.handleVolunteerReq.useMutation();
+  const router = useRouter();
+  const handleVolReq = (isApproved: boolean) => {
+    mutate({ reqId: data.id, isApproved });
+    router.reload();
+  };
   return (
-    <div className="border-slate-600 p-2">
+    <div className="border-2 border-solid border-slate-600 p-2">
       <p>user: {JSON.stringify(data.user)}</p>
       <Image src={data.documennt || ""} alt="doc" width={100} height={100} />
+      <button
+        onClick={() => {
+          handleVolReq(true);
+        }}
+      >
+        Ok
+      </button>
+      <button onClick={() => handleVolReq(false)}>No</button>
     </div>
   );
 };
