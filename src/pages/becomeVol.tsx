@@ -5,7 +5,7 @@ const Volunteer = () => {
   return (
     <>
       <Navbar />
-      <p>
+      <p className="text-lg">
         Please upload any form of identification and we will get back to you
       </p>
       <VolunteerReqUpload />

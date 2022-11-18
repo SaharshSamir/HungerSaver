@@ -9,7 +9,7 @@ const VolunteerReqUpload: React.FC = () => {
   let formData: FormData;
 
   const { mutate, isLoading, data } = trpc.user.newVolunteerReq.useMutation();
-
+  const user = trpc.auth.getUser.useQuery();
   //form change handler
   const handleChange: ChangeEventHandler = (
     e: ChangeEvent<HTMLInputElement>
@@ -53,11 +53,10 @@ const VolunteerReqUpload: React.FC = () => {
   };
 
   return (
-    <>
-      <input type="file" onChange={handleChange} />
-      {JSON.stringify(session.data?.user)}
-      <button onClick={submitHandler}>Submit</button>
-    </>
+    <div className="flex flex-col">
+      <input type="file" onChange={handleChange} className="file-input file-input-bordered w-full max-w-xs" />
+      <button onClick={submitHandler} className="btn btn-primary max-w-xs">Submit</button>
+    </div>
   );
 };
 
