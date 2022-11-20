@@ -1,8 +1,8 @@
 import { router, publicProcedure, protectedProcedure } from "@server/trpc/trpc";
-import { prisma } from "@server/db/client";
 
 export const authRouter = router({
   getSession: publicProcedure.query(({ ctx }) => {
+    console.log("heythere");
     return ctx.session;
   }),
   getSecretMessage: protectedProcedure.query(() => {
@@ -10,8 +10,25 @@ export const authRouter = router({
   }),
   getUser: protectedProcedure.query(async ({ctx}) => {
     const sessionUser = ctx.session.user; 
+    console.log("please show up");
 
-    const user = await prisma.user.findFirst({where: {email: sessionUser.email}});
+    const user = await ctx.prisma.user.findFirst({where: {email: sessionUser.email}});
     return user;
+  }),
+  getUserWithOrders: protectedProcedure.query(async ({ctx}) => {
+    const {prisma } = ctx;
+    const sessionUser = ctx.session.user; 
+  
+    const userWithOrders = await prisma.user.findFirst({
+      where: {
+        email: sessionUser.email
+      },
+      include: {
+        Order: true
+      }
+    })
+    
+    if(userWithOrders) return userWithOrders;  
+    else return undefined;
   })
 });

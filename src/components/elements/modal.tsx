@@ -6,7 +6,7 @@ interface Props {
 const Modal = (props: Props) => {
   return (
     <>
-      <label htmlFor="my-modal-4" className="btn">{props.buttonTitle}</label>
+      <label htmlFor="my-modal-4" className="btn btn-primary">{props.buttonTitle}</label>
 
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />
       <label htmlFor="my-modal-4" className="modal cursor-pointer">

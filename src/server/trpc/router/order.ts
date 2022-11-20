@@ -1,8 +1,6 @@
-
 import { date, string, z } from "zod";
 import { router, publicProcedure, protectedProcedure } from "@server/trpc/trpc";
-import { FoodType } from "@prisma/client";
-const FoodTypeArray = Object.keys(FoodType).filter((v) => isNaN(Number(v)));
+
 export const orderRouter = router({
   //optimize db calls. 3 db calls are happening. not good
   placeOrder: protectedProcedure
@@ -43,10 +41,28 @@ export const orderRouter = router({
           return newOrder;
         }
       } catch (error) {
-        console.log(error); 
+        console.log(error);
       }
 
       return "NOT_OK";
-    })
+    }),
 
-});
+  getOrder: protectedProcedure
+    .input(z.object({
+      orderId: z.string()
+    }))
+    .query(async ({ ctx, input }) => {
+      const { prisma } = ctx;
+      const order = await prisma.order.findFirst({
+        where: {
+          donationId: input.orderId
+        }
+      })
+
+      if(order) return order;
+      return undefined;
+    })
+  })
+
+
+  //  

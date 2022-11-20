@@ -52,7 +52,7 @@ model User {
   accounts         Account[]
   sessions         Session[]
   VolunteerRequest VolunteerRequest?
-  Order            Order?
+  Order            Order[]
 }
 
 model VerificationToken {

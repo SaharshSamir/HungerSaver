@@ -1,6 +1,4 @@
-/* 
-    When asking a user to donate food, we ask in the details of the food and add the food item
-    to out list of donations (Donateion table). We also link the user to the donation they have made.
+/* When asking a user to donate food, we ask in the details of the food and add the food item to out list of donations (Donateion table). We also link the user to the donation they have made.
 */
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { trpc } from "@utils/trpc";
@@ -13,11 +11,7 @@ interface FormData {
   expiry: string;
   quantity: string;
   address: string;
-  contact: string;
-  foodType: string;
-}
-
-const Donate = () => {
+  contact: string; foodType: string; } const Donate = () => {
   const router = useRouter();
   const session = useSession();
 
