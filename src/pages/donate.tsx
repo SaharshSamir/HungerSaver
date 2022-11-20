@@ -4,7 +4,6 @@
 */
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { trpc } from "@utils/trpc";
-import { TRPCClient } from "@trpc/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -28,7 +27,7 @@ const Donate = () => {
     formState: { errors },
   } = useForm();
 
-  const {mutate, data, isLoading} = trpc.user.newDonation.useMutation();
+  const { mutate, data, isLoading } = trpc.user.newDonation.useMutation();
 
 
   const onSubmit: SubmitHandler<FieldValues | FormData> = (input) => {
@@ -45,23 +44,23 @@ const Donate = () => {
 
   };
 
-  if(data) {
+  if (data) {
     router.reload();
   }
 
   useEffect(() => {
 
-    if(!session.data?.user) {
+    if (!session.data?.user) {
       router.push("/");
     }
   }, [])
 
-  if(isLoading){
+  if (isLoading) {
     return (
       <p className="text-6xl">Loading...</p>
     )
   }
-  
+
   return (
     <>
       <p className="text-4xl ">Donate Food</p>

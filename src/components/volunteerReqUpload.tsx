@@ -1,13 +1,14 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router.js";
 // import { useRouter } from "next/router";
-import type { ChangeEvent, ChangeEventHandler } from "react";
+import { ChangeEvent, ChangeEventHandler, useEffect } from "react";
 import { clientEnv } from "../env/schema.mjs";
 import { trpc } from "../utils/trpc";
 
 const VolunteerReqUpload: React.FC = () => {
   const session = useSession();
   let formData: FormData;
-
+  const router = useRouter();
   const { mutate, isLoading, data } = trpc.user.newVolunteerReq.useMutation();
   const user = trpc.auth.getUser.useQuery();
   //form change handler
