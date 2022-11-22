@@ -27,7 +27,7 @@ const Donations = () => {
               <th>Contact</th>
               <th>Expiry</th>
               <th>Address</th>
-              <th></th>
+              {userData ? <th></th> : null}
             </tr>
           </thead>
           <tbody>
@@ -76,14 +76,14 @@ const Donation = ({
     address: string;
     donationId: string;
   }) => {
-    console.log(donationId);
-    // mutate({ address, donationId });
+    // console.log(donationId);
+    mutate({ address, donationId });
   };
 
   if (data) {
     router.reload();
   }
-  console.log("donation: ", donation);
+  console.log("donation: ", donation, userId);
   return (
     <>
       <tr key={idx}>
@@ -94,17 +94,20 @@ const Donation = ({
         <td>{donation.contact}</td>
         <td>{donation.expiry.getDate()}</td>
         <td>{donation.address}</td>
-        <td>
-          {isOrdered ? (
-            <ViewOrderButton orderId={donation.id} />
-          ) : (
-            <OrderDetailsInputModal
-              isOrderLoading={isOrderLoading}
-              donation={donation}
-              handleOrder={handleOrder}
-            />
-          )}
-        </td>
+        {userId ? (
+          <td>
+            {isOrdered ? (
+              <ViewOrderButton isAuthed={userId} orderId={donation.id} />
+            ) : (
+              <OrderDetailsInputModal
+                isOrderLoading={isOrderLoading}
+                donation={donation}
+                handleOrder={handleOrder}
+                // isAuthed={userId}
+              />
+            )}
+          </td>
+        ) : null}
       </tr>
     </>
   );

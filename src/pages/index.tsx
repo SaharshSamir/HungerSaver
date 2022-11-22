@@ -1,19 +1,15 @@
-import { type NextPage } from "next";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-import Donations from "@components/Donations";
+import type  { NextPage } from "next";
+import { useSession } from "next-auth/react";
 
+import AdminHomePage from "@components/AdminHomePage";
 import { trpc } from "@utils/trpc";
-import Navbar from "@components/layouts/navbar";
-import AuthButton from "@components/AuthButton";
-
+import DonorHomePage from "@components/DonorHomepage";
 /*
   reference: 
   https://robinhoodarmy.com/  
 TODO:
 ADMIN
-1. phone no, dropdown(aadhar, paan, liscence, passport), number, image
-2. view all the orders (have access to details)
+1. phone no, dropdown(aadhar, paan, liscence, passport), number, image 2. view all the orders (have access to details)
 3.  tally of total food delivered
 
 HOMEPAGE
@@ -25,37 +21,18 @@ after delivery, admin has to be notified about the number of people fed.
 */
 
 const Home: NextPage = () => {
-  const user = trpc.auth.getUser.useQuery();
+  const {data: userData, isLoading} = trpc.auth.getUser.useQuery();
   const { data: sessionData } = useSession();
+
+  if(isLoading){return (<p>Laading...</p>)}
+
+  if(userData?.type === "ADMIN"){
+    return (<AdminHomePage />);
+  }
+   
   return (
     <>
-      <Navbar />
-      {sessionData?.user && !(user && user.data?.type === "VOLUNTEER") ?
-        <Link href="/becomeVol"> <button
-          className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-          onClick={() => {
-            return;
-          }}
-        >
-          Become a volunteer
-        </button>
-        </Link>
-        : ""
-      }
-      {sessionData?.user ?
-        <Link href="/donate">
-          <button
-            className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-            onClick={() => {
-              return;
-            }}
-          >
-            Donate
-          </button>
-        </Link>
-        : ""
-      }
-      <Donations />
+      <DonorHomePage />
     </>
   );
 };

@@ -3,10 +3,13 @@ import { useRouter } from "next/router";
 
 interface Props {
   orderId: string;
+  isAuthed: string | undefined;
 }
 
 const ViewOrder = (props: Props) => {
   const router = useRouter();
+
+  if (!props.isAuthed) return <></>;
 
   const handleClick = () => {
     router.push({
