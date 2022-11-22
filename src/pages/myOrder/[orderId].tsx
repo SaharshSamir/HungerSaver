@@ -12,6 +12,7 @@ const MyOrder = () => {
     isNaN(Number(v))
   );
   console.log(orderStatusArr);
+  const OrderStatusDisplayArr = ["Searching For a Volunteer", ""]
   const { data } = trpc.order.getOrder.useQuery({ orderId: orderId || "" });
   console.log(data);
   const OrderSteps = Object.keys(OrderStatus);

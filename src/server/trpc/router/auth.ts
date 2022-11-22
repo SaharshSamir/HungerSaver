@@ -10,7 +10,6 @@ export const authRouter = router({
   }),
   getUser: protectedProcedure.query(async ({ctx}) => {
     const sessionUser = ctx.session.user; 
-    console.log("please show up");
 
     const user = await ctx.prisma.user.findFirst({where: {email: sessionUser.email}});
     return user;

@@ -90,7 +90,7 @@ model Order {
   placedBy         User        @relation(fields: [userId], references: [id])
   donation         Donation    @relation(fields: [donationId], references: [id])
   status           OrderStatus
-  userId           String      @unique
+  userId           String
   donationId       String
 }
 

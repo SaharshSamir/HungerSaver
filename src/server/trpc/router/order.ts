@@ -36,7 +36,8 @@ export const orderRouter = router({
               connect: { id: placedByUser?.id }
             }
           }
-        })
+        });
+        console.log(newOrder);
         if (newOrder) {
           return newOrder;
         }

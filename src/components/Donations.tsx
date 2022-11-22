@@ -9,6 +9,7 @@ const Donations = () => {
   const { data: userData, isLoading: userIsLoading } =
     trpc.auth.getUserWithOrders.useQuery();
 
+  console.log(userData);
   if (isLoading || userIsLoading) {
     return <p className="text-5xl">Loading...</p>;
   }
@@ -75,12 +76,14 @@ const Donation = ({
     address: string;
     donationId: string;
   }) => {
-    mutate({ address, donationId });
+    console.log(donationId);
+    // mutate({ address, donationId });
   };
 
   if (data) {
     router.reload();
   }
+  console.log("donation: ", donation);
   return (
     <>
       <tr key={idx}>
