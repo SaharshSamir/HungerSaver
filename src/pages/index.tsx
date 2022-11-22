@@ -21,11 +21,11 @@ after delivery, admin has to be notified about the number of people fed.
 */
 
 const Home: NextPage = () => {
-  const {data: userData, isLoading} = trpc.auth.getUser.useQuery();
+
   const { data: sessionData } = useSession();
+  const { data: userData, isLoading} = trpc.auth.getUser.useQuery(undefined, {retry: 4});
 
-  if(isLoading){return (<p>Laading...</p>)}
-
+  if(isLoading) return (<p>Loading...</p>)
   if(userData?.type === "ADMIN"){
     return (<AdminHomePage />);
   }

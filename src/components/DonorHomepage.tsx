@@ -25,13 +25,14 @@ ask volunteer when order is done, how many ppl were fed
 after delivery, admin has to be notified about the number of people fed.
 */
 
-const Home: NextPage = () => {
-  const user = trpc.auth.getUser.useQuery();
+const Home = () => {
   const { data: sessionData } = useSession();
+  const { data: userData, isLoading} = trpc.auth.getUser.useQuery(undefined, {retry: 4});
+  if(isLoading) return (<p>Loading...g</p>)
   return (
     <>
       <Navbar />
-      {sessionData?.user && !(user && user.data?.type === "VOLUNTEER") ?
+      {sessionData?.user && !(userData  && userData.type === "VOLUNTEER") ?
         <Link href="/becomeVol"> <button
           className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
           onClick={() => {
