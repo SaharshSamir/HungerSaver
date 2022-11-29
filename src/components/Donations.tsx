@@ -33,8 +33,8 @@ const Donations = () => {
           <tbody>
             {data?.map((d, idx) => {
               const isOrdered =
-                (userData?.Order.filter((o) => o.donationId === d.id).length ||
-                  []) > 0;
+                (userData?.placedOrders.filter((o) => o.donationId === d.id)
+                  .length || [].length) > 0;
               return (
                 <Donation
                   idx={idx}
@@ -77,6 +77,7 @@ const Donation = ({
     donationId: string;
   }) => {
     // console.log(donationId);
+    console.log(address, donationId);
     mutate({ address, donationId });
   };
 
@@ -103,7 +104,7 @@ const Donation = ({
                 isOrderLoading={isOrderLoading}
                 donation={donation}
                 handleOrder={handleOrder}
-                // isAuthed={userId}
+                userId={userId}
               />
             )}
           </td>

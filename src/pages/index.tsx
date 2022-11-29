@@ -1,9 +1,12 @@
 import type  { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import {useRouter} from "next/router";
 
 import AdminHomePage from "@components/AdminHomePage";
 import { trpc } from "@utils/trpc";
 import DonorHomePage from "@components/DonorHomepage";
+import { useEffect } from "react";
+import VolunteerHomepage from "@components/VolunteerHomepage";
 /*
   reference: 
   https://robinhoodarmy.com/  
@@ -23,18 +26,38 @@ after delivery, admin has to be notified about the number of people fed.
 const Home: NextPage = () => {
 
   const { data: sessionData } = useSession();
-  const { data: userData, isLoading} = trpc.auth.getUser.useQuery(undefined, {retry: 4});
+  const router = useRouter(); 
 
-  if(isLoading) return (<p>Loading...</p>)
-  if(userData?.type === "ADMIN"){
-    return (<AdminHomePage />);
-  }
-   
+  useEffect(() => {
+    if(!sessionData) {
+      router.push("/landing"); 
+      //return (<Landing />)
+    }
+  }, [])
   return (
-    <>
-      <DonorHomePage />
-    </>
+    <HomePageContent />
   );
 };
 
+const HomePageContent = () => {
+  const { data: userData, isLoading } = trpc.auth.getUser.useQuery(undefined, {retry: 4});
+
+  if(userData?.type === "ADMIN"){
+    return (<AdminHomePage user={userData} isLoading={isLoading}/>);
+  }
+  
+  if(userData?.type === "VOLUNTEER"){
+    return (<VolunteerHomepage user={userData} isLoading={isLoading}/>);
+  }
+
+  return (
+      <DonorHomePage user={userData} isLoading={isLoading}/>
+  )
+}
+
+const Landing = () => {
+  return (
+    <h1>Landing Page</h1>
+  )
+}
 export default Home;

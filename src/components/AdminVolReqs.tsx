@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { trpc } from "@utils/trpc";
 import Navbar from "@components/layouts/navbar";
+import Modal from "./elements/modal";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -36,36 +37,21 @@ const Dashboard = () => {
               <tr>
                 <th></th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Document Type</th>
                 <th>Document</th>
+                <th>Approve</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>Cy Ganderton</td>
-                <td>Quality Control Specialist</td>
-                <td>Blue</td>
-              </tr>
-              <tr>
-                <th>2</th>
-                <td>Hart Hagerty</td>
-                <td>Desktop Support Technician</td>
-                <td>Purple</td>
-              </tr>
-              <tr>
-                <th>3</th>
-                <td>Brice Swyre</td>
-                <td>Tax Accountant</td>
-                <td>Red</td>
-              </tr>
+              {reqData?.map((req, idx) => {
+                console.log("idx", idx);
+                return <SingleReq key={idx} data={req} idx={idx} />;
+              })}
             </tbody>
           </table>
         </div>
       </div>
-      {reqData?.map((req, idx) => {
-        return <SingleReq data={req} key={idx} />;
-      })}
     </>
   );
 };
@@ -74,29 +60,65 @@ interface DataProps {
   data: VolunteerRequest & {
     user: User;
   };
+  idx: number;
 }
 
-const SingleReq = ({ data }: DataProps) => {
+const SingleReq = ({ data, idx }: DataProps) => {
+  console.log("key", idx);
   const { mutate } = trpc.user.handleVolunteerReq.useMutation();
+
   const router = useRouter();
+
   const handleVolReq = (isApproved: boolean) => {
     mutate({ reqId: data.id, isApproved });
     router.reload();
   };
+
   return (
-    <div className="border-2 border-solid border-slate-600 p-2">
-      <p>user: {JSON.stringify(data.user)}</p>
-      <Image src={data.documennt || ""} alt="doc" width={100} height={100} />
-      <button
-        onClick={() => {
-          handleVolReq(true);
-        }}
-      >
-        Ok
-      </button>
-      <button onClick={() => handleVolReq(false)}>No</button>
-    </div>
+    <tr key={idx}>
+      <th>{idx + 1}</th>
+      <td>{data.user.name}</td>
+      <td>{data.user.email}</td>
+      <td>Aadhar</td>
+      <td>
+        <Modal buttonTitle="View Document">
+          <Image
+            src={data.documennt ? data.documennt : ""}
+            alt="document"
+            height={1000}
+            width={1000}
+          />
+        </Modal>
+      </td>
+      <td>
+        <button
+          onClick={() => handleVolReq(true)}
+          className="btn-success btn mr-2"
+        >
+          Yes
+        </button>
+        <button
+          onClick={() => handleVolReq(false)}
+          className="btn-error btn ml-2"
+        >
+          No
+        </button>
+      </td>
+    </tr>
   );
 };
 
 export default Dashboard;
+
+// <div className="border-2 border-solid border-slate-600 p-2">
+//   <p>user: {JSON.stringify(data.user)}</p>
+//   <Image src={data.documennt || ""} alt="doc" width={100} height={100} />
+//   <button
+//     onClick={() => {
+//       handleVolReq(true);
+//     }}
+//   >
+//     Ok
+//   </button>
+//   <button onClick={() => handleVolReq(false)}>No</button>
+// </div>

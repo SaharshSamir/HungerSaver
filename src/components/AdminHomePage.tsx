@@ -1,11 +1,16 @@
 import { useRouter } from "next/router"
 import Navbar from "@components/layouts/navbar";
 import {trpc }from "@utils/trpc";
+import { User } from "@prisma/client";
 
-const AdminHomePage = () => {
+interface Props{
+  user: User,
+  isLoading: boolean
+}
+
+const AdminHomePage = ({user, isLoading}: Props) => {
   const router = useRouter();
-  const { data: userData, isLoading} = trpc.auth.getUser.useQuery(undefined, {retry: 4});
-  if(isLoading) return (<p>Loading...g</p>)
+  if(isLoading) return (<p>Loading...</p>)
   return (
     <>
       <Navbar />

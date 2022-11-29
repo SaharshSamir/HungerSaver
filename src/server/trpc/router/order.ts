@@ -9,35 +9,38 @@ export const orderRouter = router({
       donationId: z.string()
     }))
     .mutation(async ({ ctx, input }) => {
-      const { prisma, session } = ctx;
-
-      const placedByUser = await prisma.user.findFirst({
-        where: {
-          email: session.user.email
-        }
-      });
-
-      const donation = await prisma.donation.findFirst({
-        where: {
-          id: input.donationId
-        }
-      })
-
       try {
+        const { prisma, session } = ctx;
+        console.log("------input------", input);
+        const placedByUser = await prisma.user.findFirst({
+          where: {
+            email: session.user.email
+          }
+        });
+
+        console.log(placedByUser);
+
+        const donation = await prisma.donation.findFirst({
+          where: {
+            id: input.donationId
+          }
+        })
+        console.log("-----DONATION--------", donation?.id);
+        console.log("-----PLACED BY USER--------", placedByUser?.name);
         const newOrder = await prisma.order.create({
           data: {
             placedAt: new Date(),
             deliveryLocation: input.address,
             status: "SEARCHING",
-            donation: {
-              connect: { id: donation?.id }
-            },
             placedBy: {
               connect: { id: placedByUser?.id }
+            },
+            donation: {
+              connect: { id: donation?.id }
             }
           }
-        });
-        console.log(newOrder);
+        })
+        console.log("-----NEW ORDER-----", newOrder);
         if (newOrder) {
           return newOrder;
         }
@@ -56,14 +59,27 @@ export const orderRouter = router({
       const { prisma } = ctx;
       const order = await prisma.order.findFirst({
         where: {
-          donationId: input.orderId
+          id: input.orderId
+        },
+        include: {
+          donation: true
         }
       })
 
-      if(order) return order;
+      if (order) return order;
       return undefined;
+    }),
+  getOrders: protectedProcedure
+    .query(async ({ ctx }) => {
+      const { prisma } = ctx;
+      const orders = prisma.order.findMany({
+        include: {
+          donation: true
+        }
+      });
+
+      if (orders) return orders;
+      return [];
     })
-  })
+})
 
-
-  //  

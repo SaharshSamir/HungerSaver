@@ -23,7 +23,7 @@ export const authRouter = router({
         email: sessionUser.email
       },
       include: {
-        Order: true
+        placedOrders: true
       }
     })
     

@@ -42,17 +42,18 @@ model Session {
 }
 
 model User {
-  id               String            @id @default(cuid())
-  name             String?
-  email            String?           @unique
-  emailVerified    DateTime?
-  image            String?
-  type             UserType          @default(DONATOR)
-  donations        Donation[]
-  accounts         Account[]
-  sessions         Session[]
-  VolunteerRequest VolunteerRequest?
-  Order            Order[]
+  id                 String            @id @default(cuid())
+  name               String?
+  email              String?           @unique
+  emailVerified      DateTime?
+  image              String?
+  type               UserType          @default(DONATOR)
+  donations          Donation[]
+  accounts           Account[]
+  sessions           Session[]
+  VolunteerRequest   VolunteerRequest?
+  placedOrders       Order[]           @relation("Order_PacedByUser")
+  volunteeringOrders Order[]           @relation("Order_VolunteeringByUser")
 }
 
 model VerificationToken {
@@ -84,14 +85,23 @@ model VolunteerRequest {
 }
 
 model Order {
-  id               String      @id @default(cuid())
+  id               String        @id @default(cuid())
   deliveryLocation String
   placedAt         DateTime
-  placedBy         User        @relation(fields: [userId], references: [id])
-  donation         Donation    @relation(fields: [donationId], references: [id])
+  placedBy         User          @relation(fields: [placedByUserId], references: [id], name: "Order_PacedByUser")
+  donation         Donation      @relation(fields: [donationId], references: [id])
+  volunteeringBy   User?         @relation(fields: [volunteerUserId], references: [id], name: "Order_VolunteeringByUser")
   status           OrderStatus
-  userId           String
+  placedByUserId   String
+  volunteerUserId  String?
   donationId       String
+  activeOrder      ActiveOrder?
+}
+
+model ActiveOrder {
+  id      String  @id @default(cuid())
+  order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String? @unique
 }
 
 enum OrderStatus {

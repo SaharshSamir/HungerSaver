@@ -7,6 +7,7 @@ import Donations from "@components/Donations";
 import { trpc } from "@utils/trpc";
 import Navbar from "@components/layouts/navbar";
 import AuthButton from "@components/AuthButton";
+import { User } from "@prisma/client";
 
 /*
   reference: 
@@ -25,14 +26,18 @@ ask volunteer when order is done, how many ppl were fed
 after delivery, admin has to be notified about the number of people fed.
 */
 
-const Home = () => {
+interface Props {
+  user: User | null | undefined,
+  isLoading: boolean
+}
+
+const DonorHome = ({user, isLoading}: Props) => {
   const { data: sessionData } = useSession();
-  const { data: userData, isLoading} = trpc.auth.getUser.useQuery(undefined, {retry: 4});
   if(isLoading) return (<p>Loading...g</p>)
   return (
     <>
       <Navbar />
-      {sessionData?.user && !(userData  && userData.type === "VOLUNTEER") ?
+      {sessionData?.user && !(user  && user.type === "VOLUNTEER") ?
         <Link href="/becomeVol"> <button
           className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
           onClick={() => {
@@ -62,4 +67,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default DonorHome;
