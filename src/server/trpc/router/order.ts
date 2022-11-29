@@ -1,5 +1,6 @@
 import { date, string, z } from "zod";
 import { router, publicProcedure, protectedProcedure } from "@server/trpc/trpc";
+import { OrderStatus } from "@prisma/client";
 
 export const orderRouter = router({
   //optimize db calls. 3 db calls are happening. not good
@@ -80,6 +81,27 @@ export const orderRouter = router({
 
       if (orders) return orders;
       return [];
+    }),
+  updateOrderStep: protectedProcedure
+    .input(z.object({
+      orderId: z.string(),
+      step: z.nativeEnum(OrderStatus)
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const { prisma } = ctx;
+      const { orderId, step } = input;
+      
+      const order = await prisma.order.update({
+        where: {
+          id: orderId
+        },
+        data: {
+          status: step
+        }
+      });
+
+      return order || undefined;
     })
+
 })
 

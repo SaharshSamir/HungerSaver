@@ -1,4 +1,5 @@
 import { OrderStatus } from "@prisma/client";
+import enumToArray from "@utils/enumToArray";
 import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
 
@@ -8,11 +9,12 @@ const MyOrder = () => {
   if (typeof orderId === "object") {
     orderId = orderId[0];
   }
-  const orderStatusArr = Object.keys(OrderStatus).filter((v) =>
-    isNaN(Number(v))
-  );
+  // const orderStatusArr = Object.keys(OrderStatus).filter((v) =>
+  //   isNaN(Number(v))
+  // );
+  const orderStatusArr = enumToArray(OrderStatus);
   console.log(orderStatusArr);
-  const OrderStatusDisplayArr = ["Searching For a Volunteer", ""]
+  const OrderStatusDisplayArr = ["Searching For a Volunteer", ""];
   const { data } = trpc.order.getOrder.useQuery({ orderId: orderId || "" });
   console.log(data);
   const OrderSteps = Object.keys(OrderStatus);
