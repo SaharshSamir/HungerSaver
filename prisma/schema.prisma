@@ -42,18 +42,20 @@ model Session {
 }
 
 model User {
-  id                 String            @id @default(cuid())
-  name               String?
-  email              String?           @unique
-  emailVerified      DateTime?
-  image              String?
-  type               UserType          @default(DONATOR)
-  donations          Donation[]
-  accounts           Account[]
-  sessions           Session[]
-  VolunteerRequest   VolunteerRequest?
-  placedOrders       Order[]           @relation("Order_PacedByUser")
-  volunteeringOrders Order[]           @relation("Order_VolunteeringByUser")
+  id                  String               @id @default(cuid())
+  name                String?
+  email               String?              @unique
+  emailVerified       DateTime?
+  image               String?
+  type                UserType             @default(DONATOR)
+  donations           Donation[]
+  accounts            Account[]
+  sessions            Session[]
+  VolunteerRequest    VolunteerRequest?
+  placedOrders        Order[]              @relation("Order_PacedByUser")
+  volunteeringOrders  Order[]              @relation("Order_VolunteeringByUser")
+  // verificationReq       VerificationRequest? @relation("Order_VerificationByUser", fields: [verificationRequestId], references: [id])
+  VerificationRequest VerificationRequest?
 }
 
 model VerificationToken {
@@ -77,6 +79,7 @@ model Donation {
   Order    Order[]
 }
 
+//request to admin to become a volunteer
 model VolunteerRequest {
   id        String  @id @default(cuid())
   documennt String?
@@ -84,13 +87,21 @@ model VolunteerRequest {
   userId    String  @unique
 }
 
+//request to admin to order donations
+model VerificationRequest {
+  id        String  @id @default(cuid())
+  documennt String?
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String  @unique
+}
+
 model Order {
-  id               String        @id @default(cuid())
+  id               String       @id @default(cuid())
   deliveryLocation String
   placedAt         DateTime
-  placedBy         User          @relation(fields: [placedByUserId], references: [id], name: "Order_PacedByUser")
-  donation         Donation      @relation(fields: [donationId], references: [id])
-  volunteeringBy   User?         @relation(fields: [volunteerUserId], references: [id], name: "Order_VolunteeringByUser")
+  placedBy         User         @relation(fields: [placedByUserId], references: [id], name: "Order_PacedByUser")
+  donation         Donation     @relation(fields: [donationId], references: [id])
+  volunteeringBy   User?        @relation(fields: [volunteerUserId], references: [id], name: "Order_VolunteeringByUser")
   status           OrderStatus
   placedByUserId   String
   volunteerUserId  String?
@@ -116,6 +127,7 @@ enum OrderStatus {
 
 enum UserType {
   DONATOR
+  CLIENT
   VOLUNTEER
   ADMIN
 }

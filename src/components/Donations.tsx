@@ -3,6 +3,7 @@ import { trpc } from "@utils/trpc";
 import OrderDetailsInputModal from "@components/OrderDetailsInputModal";
 import ViewOrderButton from "./ViewOrderButton";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Donations = () => {
   const { data, isLoading } = trpc.user.getDonations.useQuery();
@@ -42,6 +43,7 @@ const Donations = () => {
                   key={idx}
                   userId={userData?.id}
                   isOrdered={isOrdered}
+                  isVerified={userData?.type === "CLIENT"}
                 />
               );
             })}
@@ -57,13 +59,16 @@ const Donation = ({
   donation,
   userId,
   isOrdered,
+  isVerified,
 }: {
   idx: number;
   donation: DonationType;
   userId?: string;
   isOrdered: boolean;
+  isVerified: boolean;
 }) => {
   const router = useRouter();
+  const [showError, setShowError] = useState<boolean>(false);
   const {
     mutate,
     isLoading: isOrderLoading,
@@ -77,8 +82,12 @@ const Donation = ({
     donationId: string;
   }) => {
     // console.log(donationId);
-    console.log(address, donationId);
-    mutate({ address, donationId });
+    if (isVerified) {
+      console.log(address, donationId);
+      mutate({ address, donationId });
+    } else {
+      alert("You need to be verified to place orders");
+    }
   };
 
   if (data) {

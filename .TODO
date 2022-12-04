@@ -1,3 +1,4 @@
 [] Add dropoff contact
-[] creat OngoingOrder when vol picks up an order
-[] getActiveOrder for volunteer and palcedByUser
+[x] creat OngoingOrder when vol picks up an order
+[x] getActiveOrder for volunteer and palcedByUser
+[] Verification to place an order
