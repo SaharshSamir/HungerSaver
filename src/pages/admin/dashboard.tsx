@@ -1,17 +1,18 @@
 import AdminVolReqs from "@components/AdminVolReqs";
 import AdminVerificationReqs from "@components/AdminVerificationReqs";
+import Link from "next/link";
 
 const Dashboard = () => {
   return (
     <>
       {/* <AdminVolReqs />
       <AdminVerificationReqs /> */}
-      <a href="/admin/VolunteerReqs" className="btn">
+      <Link href="/admin/VolunteerReqs" className="btn">
         Volunteer Requests
-      </a>
-      <a href="/admin/verificationReqs" className="btn">
+      </Link>
+      <Link href="/admin/verificationReqs" className="btn">
         Verification Requests
-      </a>
+      </Link>
     </>
   );
 };
