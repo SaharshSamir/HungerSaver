@@ -123,6 +123,7 @@ interface ViewOrderProps {
   orderId: string;
 }
 const ViewOrderButton = (props: ViewOrderProps) => {
+  console.log(props.orderId);
   return (
     <button
       onClick={() => props.onClick(props.orderId)}

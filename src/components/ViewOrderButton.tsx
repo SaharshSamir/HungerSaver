@@ -2,7 +2,7 @@ import { OrderStatus } from "@prisma/client";
 import { useRouter } from "next/router";
 
 interface Props {
-  orderId: string;
+  donationId: string;
   isAuthed: string | undefined;
 }
 
@@ -13,8 +13,8 @@ const ViewOrder = (props: Props) => {
 
   const handleClick = () => {
     router.push({
-      pathname: "/myOrder/[orderId]",
-      query: { orderId: props.orderId },
+      pathname: "/myOrder/[donationId]",
+      query: { donationId: props.donationId },
     });
   };
   return (

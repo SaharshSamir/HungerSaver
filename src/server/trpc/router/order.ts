@@ -101,6 +101,22 @@ export const orderRouter = router({
       });
 
       return order || undefined;
+    }),
+    getOrderFromDonation: protectedProcedure
+    .input(z.object({
+      donationId: z.string()
+    }))
+    .query(async ({ctx, input}) => {
+      const {prisma} = ctx;
+      const {donationId} = input;
+
+      const order = await prisma.order.findFirst({
+        where: {
+          donationId: donationId
+        }
+      });
+
+      return order || undefined;
     })
 
 })

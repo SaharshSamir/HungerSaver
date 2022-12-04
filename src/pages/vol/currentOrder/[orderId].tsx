@@ -1,3 +1,4 @@
+import Navbar from "@components/layouts/navbar";
 import { Order, OrderStatus, User } from "@prisma/client";
 import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
@@ -42,7 +43,7 @@ const CurrentOrder = () => {
     orderId = orderId[0];
   }
 
-  const { data: orderData } = trpc.order.getOrder.useQuery({
+  const { data: orderData, error: orderError } = trpc.order.getOrder.useQuery({
     orderId: orderId || "",
   });
 
@@ -93,10 +94,18 @@ const CurrentOrder = () => {
   };
 
   useEffect(() => {
+    if (orderError && orderError.message === "UNAUTHORIZED") {
+      router.push("/");
+    }
+  }, [orderError, router]);
+
+  useEffect(() => {
     if (orderData || newOrderData) setOrder(orderData);
   }, [orderData, newOrderData]);
+
   return (
     <>
+      <Navbar />
       <form onSubmit={submitForm}>
         <select
           onChange={(e) => {

@@ -98,7 +98,7 @@ const Donation = ({
         {userId ? (
           <td>
             {isOrdered ? (
-              <ViewOrderButton isAuthed={userId} orderId={donation.id} />
+              <ViewOrderButton isAuthed={userId} donationId={donation.id} />
             ) : (
               <OrderDetailsInputModal
                 isOrderLoading={isOrderLoading}
