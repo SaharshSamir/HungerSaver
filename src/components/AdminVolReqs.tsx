@@ -37,6 +37,9 @@ const Dashboard = () => {
                 <th></th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Contact</th>
                 <th>Document Type</th>
                 <th>Document</th>
                 <th>Approve</th>
@@ -73,12 +76,20 @@ const SingleReq = ({ data, idx }: DataProps) => {
     router.reload();
   };
 
+  console.log("user age year", data.user.dob?.getFullYear());
+  console.log("current year", data.user.dob?.getFullYear());
+  const age =
+    (data.user.dob?.getFullYear() || 0) - (new Date().getFullYear() || 0);
+
   return (
     <tr key={idx}>
       <th>{idx + 1}</th>
       <td>{data.user.name}</td>
       <td>{data.user.email}</td>
-      <td>Aadhar</td>
+      <td>{age}</td>
+      <td>{data.user.city}</td>
+      <td>{data.user.contact}</td>
+      <td>{data.documentType}</td>
       <td>
         <Modal buttonTitle="View Document">
           <Image
