@@ -140,21 +140,29 @@ export const userRouter = router({
     }),
   newVerificationReq: protectedProcedure
     .input(z.object({
-      url: z.string()
+      url: z.string(),
+      city: z.string(),
+      registrationNo: z.string()
     }))
     .mutation(async ({ ctx, input }) => {
       const { prisma, session } = ctx;
       const { url } = input;
 
-      const user = await prisma.user.findFirst({
+      const user = await prisma.user.update({
         where: {
-          email: session?.user?.email
+          email: session?.user?.email || ""
+        },
+        data: {
+          registrationNo: input.registrationNo,
+          city: input.city
         }
       })
 
       const newVerificationReq = await prisma.verificationRequest.create({
         data: {
           documennt: url,
+          registrationNo: input.registrationNo,
+          city: input.city,
           user: {
             connect: { id: user?.id }
           }

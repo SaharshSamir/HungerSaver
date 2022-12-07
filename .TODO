@@ -2,6 +2,6 @@
 [x] creat OngoingOrder when vol picks up an order
 [x] getActiveOrder for volunteer and palcedByUser
 [x] Verification to place an order
-[] BECOMING VOL - Name Contact number Age Verification document type CIty
+[x] BECOMING VOL - Name Contact number Age Verification document type CIty
 [] ACC VERIFICATION - Registeration No  CIty
 [] Form Validations

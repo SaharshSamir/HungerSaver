@@ -50,6 +50,7 @@ model User {
   contact             String?
   dob                 DateTime?
   city                String?
+  registrationNo      String?
   type                UserType             @default(DONATOR)
   donations           Donation[]
   accounts            Account[]
@@ -98,10 +99,12 @@ model VolunteerRequest {
 
 //request to admin to order donations
 model VerificationRequest {
-  id        String  @id @default(cuid())
-  documennt String?
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String  @unique
+  id             String  @id @default(cuid())
+  documennt      String?
+  registrationNo String?
+  city           String?
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String  @unique
 }
 
 model Order {
