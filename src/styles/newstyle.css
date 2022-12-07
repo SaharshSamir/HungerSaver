@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+/* body {
+  background-image: url(/istockphoto-524903696-612x612.jpg);
+  background-size: contain;
+
+  font-family: sans-serif;
+} */
+#buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#buttons a {
+  background-color: #000000;
+  color: rgb(193, 255, 127);
+  font-size: 1.6em;
+  padding: 1em 2em;
+  text-decoration: none;
+}
+
+#section1 {
+  background-color: #ffffff;
+}
+#section2 {
+  background-color: #e7e6e6;
+}
+section h1 {
+  color: black;
+  font-size: 3.5em;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 0.5em;
+}

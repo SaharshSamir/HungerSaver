@@ -76,13 +76,15 @@ export const userRouter = router({
     .input(z.object({
       name: z.string(),
       expiry: z.date(),
-      quantity: z.string(),
+      quantity: z.number(),
+      city: z.string(),
       address: z.string(),
       contact: z.string(),
       foodType: z.nativeEnum(FoodType),
     }))
     .mutation(async ({ ctx, input }) => {
       const { prisma, session } = ctx;
+      console.log(input);
       const user = await prisma.user.findFirst({
         where: {
           email: session.user.email
@@ -94,6 +96,7 @@ export const userRouter = router({
           name: input.name,
           expiry: input.expiry,
           quantity: input.quantity,
+          city: input.city,
           address: input.address,
           contact: input.contact,
           foodType: input.foodType,

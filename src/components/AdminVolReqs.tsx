@@ -27,7 +27,6 @@ const Dashboard = () => {
   }
   return (
     <>
-      <Navbar />
       <p>Dashboard</p>
       <p>somethihg</p>
       <div className="flex w-full justify-center">

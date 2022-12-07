@@ -70,7 +70,8 @@ model Donation {
   id       String   @id @default(cuid())
   name     String
   expiry   DateTime
-  quantity String
+  quantity Int
+  city     String
   address  String
   contact  String
   foodType FoodType
