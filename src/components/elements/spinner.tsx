@@ -1,4 +1,4 @@
-const Spinner = () => {
+function Spinner() {
   return (
     <div role="status">
       <svg aria-hidden="true" className="mr-2 w-8 h-8 text-gray-50 animate-spin dark:text-gray-300 fill-purple-700" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -7,7 +7,7 @@ const Spinner = () => {
       </svg>
       <span className="sr-only">Loading...</span>
     </div>
-  )
+  );
 }
 
 export default Spinner;

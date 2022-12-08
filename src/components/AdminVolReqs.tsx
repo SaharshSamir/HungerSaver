@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { trpc } from "@utils/trpc";
 import Navbar from "@components/layouts/navbar";
 import Modal from "./elements/modal";
+import Loader from "./layouts/Loader";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const Dashboard = () => {
   //if (!session.data?.user) return (<></>);
   console.log(data);
   if (isLoading || isReqLoading) {
-    return <p className="text-4xl">Loading...</p>;
+    return <Loader/>;
   }
   return (
     <>

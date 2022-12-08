@@ -5,6 +5,7 @@ import { useRouter } from "next/router.js";
 import { ChangeEvent, ChangeEventHandler, useEffect } from "react";
 import { clientEnv } from "../env/schema.mjs";
 import { trpc } from "../utils/trpc";
+import Loader from "./layouts/Loader.jsx";
 
 const VerifyReqUpload: React.FC = () => {
   const session = useSession();
@@ -16,7 +17,7 @@ const VerifyReqUpload: React.FC = () => {
   const user = trpc.auth.getUser.useQuery();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
 
   if (data) {

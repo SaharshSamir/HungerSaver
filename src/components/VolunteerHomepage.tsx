@@ -2,6 +2,7 @@ import type { User } from "@prisma/client";
 import Navbar from "@components/layouts/navbar";
 import { trpc } from "@utils/trpc";
 import { useRouter } from "next/router";
+import Loader from "./layouts/Loader";
 
 interface Props {
   user: User;
@@ -24,7 +25,7 @@ const VolunteerHomepage = ({ user, isLoading }: Props) => {
   const router = useRouter();
 
   if (isLoading || isGetOrdersLoading || isNewVolLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
 
   const handleVolunteer = (orderId: string, volunteerId: string) => {

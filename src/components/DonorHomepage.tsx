@@ -7,6 +7,8 @@ import { trpc } from "@utils/trpc";
 import Navbar from "@components/layouts/navbar";
 import AuthButton from "@components/AuthButton";
 import { User } from "@prisma/client";
+import Loader from "./layouts/Loader";
+import Footer from "./layouts/Footer";
 
 /*
   reference: 
@@ -32,10 +34,10 @@ interface Props {
 
 const DonorHome = ({ user, isLoading }: Props) => {
   const { data: sessionData } = useSession();
-  if (isLoading) return <p>Loading...g</p>;
+  if (isLoading) return <Loader/>;
   return (
-    <>
-      <Navbar />
+    <div className="min-h-screen">
+      <Navbar  />
       {sessionData?.user && !(user && user.type === "VOLUNTEER") ? (
         <Link href="/becomeVol">
           {" "}
@@ -81,7 +83,8 @@ const DonorHome = ({ user, isLoading }: Props) => {
         ""
       )}
       <Donations />
-    </>
+      <Footer/>
+    </div>
   );
 };
 

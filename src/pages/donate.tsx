@@ -4,7 +4,10 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Footer from "@components/layouts/Footer";
 import { useEffect } from "react";
+import Loader from "@components/layouts/Loader";
+import Navbar from "@components/layouts/navbar";
 
 interface FormData {
   name: string;
@@ -14,6 +17,7 @@ interface FormData {
   contact: string;
   foodType: string;
 }
+
 const Donate = () => {
   const router = useRouter();
   const session = useSession();
@@ -50,13 +54,15 @@ const Donate = () => {
   }, []);
 
   if (isLoading) {
-    return <p className="text-6xl">Loading...</p>;
+    return <Loader/>;
   }
 
   return (
     <>
-      <p className="text-4xl ">Donate Food</p>
-      <div className="flex w-full items-center justify-center">
+    <div className="gradient-bg-welcome"></div>
+    <Navbar/>
+      <p className="flex w-full justify-center text-4xl ">Donate Food</p>
+      <div className="flex w-full items-center justify-center green-glassmorphism" >
         <form
           className="flex w-4/6 flex-col items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
@@ -97,7 +103,7 @@ const Donate = () => {
             <option disabled selected>
               Food Type
             </option>
-            <option value="VEG">Veg</option>
+            <option value="VEG" className="flex w-full justify-center text-green  ">Veg</option>
             <option value="NON_VEG">Non Veg</option>
           </select>
           <button className="btn-primary btn" type="submit">
@@ -105,6 +111,7 @@ const Donate = () => {
           </button>
         </form>
       </div>
+      <Footer/>
     </>
   );
 };
