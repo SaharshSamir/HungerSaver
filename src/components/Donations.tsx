@@ -4,6 +4,7 @@ import OrderDetailsInputModal from "@components/OrderDetailsInputModal";
 import ViewOrderButton from "./ViewOrderButton";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Loader from "./layouts/Loader";
 
 const Donations = () => {
   const { data, isLoading } = trpc.user.getDonations.useQuery();
@@ -12,7 +13,7 @@ const Donations = () => {
 
   console.log(userData);
   if (isLoading || userIsLoading) {
-    return <p className="text-5xl">Loading...</p>;
+    return <Loader/>;
   }
 
   return (

@@ -7,6 +7,7 @@ import { trpc } from "@utils/trpc";
 import DonorHomePage from "@components/DonorHomepage";
 import { useEffect } from "react";
 import VolunteerHomepage from "@components/VolunteerHomepage";
+import Footer from "@components/layouts/Footer";
 /*
   reference: 
   https://robinhoodarmy.com/  
@@ -52,4 +53,11 @@ const HomePageContent = () => {
   return <DonorHomePage user={userData} isLoading={isLoading} />;
 };
 
+const Landing = () => {
+  return (<>
+    <h1>Landing Page</h1>
+    <Footer/>
+    </>
+  )
+}
 export default Home;

@@ -6,10 +6,10 @@ import type { SubmitHandler, FieldValues } from "react-hook-form";
 import { ChangeEvent, ChangeEventHandler, useEffect } from "react";
 import { clientEnv } from "../env/schema.mjs";
 import { trpc } from "../utils/trpc";
-import { zodResolver } from "@hookform/resolvers/zod";
+import Loader from "./layouts/Loader.jsx";
 import ErrorAlert from "@components/elements/ErrorAlert";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 const schema = z.object({
   registrationNo: z.string(),
   city: z.string(),
@@ -41,7 +41,7 @@ const VerifyReqUpload: React.FC = () => {
     trpc.user.newVerificationReq.useMutation();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
 
   if (data) {

@@ -5,7 +5,11 @@ import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Footer from "@components/layouts/Footer";
 import { useEffect } from "react";
+import Loader from "@components/layouts/Loader";
+import Navbar from "@components/layouts/navbar";
+import {useNavigate} from "react-router-dom";
 
 // type SubmitHandlerArgs = FormData
 
@@ -18,6 +22,7 @@ interface FormData {
   foodType: FoodType;
   city: string;
 }
+
 const Donate = () => {
   const router = useRouter();
   const session = useSession();
@@ -55,97 +60,81 @@ const Donate = () => {
   }, []);
 
   if (isLoading) {
-    return <p className="text-6xl">Loading...</p>;
+    return <Loader/>;
   }
 
   return (
-    <>
-      <p className="text-4xl ">Donate Food</p>
-      <div className="flex w-full items-center justify-center">
+    <div > 
+    <Navbar/>
+      <div style={{
+        display: 'flow-root',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+      }}><p className="flex w-full justify-center text-4xl ">Donate Food</p>
+      <div className="flex w-full items-center justify-center" >
         <form
           className="flex w-4/6 flex-col items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="my-2 w-full max-w-xs ">
-            <label className="text-slate-600">Food Name</label>
-            <input
-              type="text"
-              placeholder="Name"
-              className="input-bordered input  w-full max-w-xs"
-              {...register("name")}
-            />
-          </div>
-          <div className="my-2 w-full max-w-xs">
-            <label className="text-slate-600">Expiry Date</label>
-            <input
-              className="input-bordered input w-full max-w-xs"
-              type="date"
-              {...register("expiry")}
-            />
-          </div>
-          <div className="my-2 w-full max-w-xs">
-            <label className="text-slate-600">Food Quantity</label>
-            <input
-              type="number"
-              placeholder="Quantity"
-              className="input-bordered input w-full max-w-xs"
-              {...register("quantity")}
-            />
-          </div>
-          <div className="my-2 w-full max-w-xs">
-            <label className="text-slate-600">Your City</label>
-            <select
-              className="select-bordered select w-full max-w-xs text-slate-600"
-              {...register("city")}
-            >
-              <option disabled selected className="text-slate-600">
-                City
-              </option>
-              <option value="Pune">Pune</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Aurangabad">Aurangabad</option>
-              <option value="Nagpur">Nagpur</option>
-              <option value="Nashik">Nashik</option>
-            </select>
-          </div>
-          <div className="my-2 w-full max-w-xs">
-            <label className="text-slate-600">Your Address</label>
-            <input
-              type="text"
-              placeholder="Address"
-              className="input-bordered input w-full max-w-xs"
-              {...register("address")}
-            />
-          </div>
-          <div className="my-2 w-full max-w-xs">
-            <label className="text-slate-600">Your Phone No.</label>
-            <input
-              type="text"
-              placeholder="Contact"
-              className="input-bordered input w-full max-w-xs"
-              {...register("contact")}
-            />
-          </div>
-          <div className="my-2 w-full max-w-xs">
-            <label className="text-slate-600">Food Type</label>
-            <select
-              className="select-bordered select w-full max-w-xs"
-              {...register("foodType")}
-            >
-              <option disabled selected className="text-slate-600">
-                Food Type
-              </option>
-              <option value="VEG">Veg</option>
-              <option value="NON_VEG">Non Veg</option>
-            </select>
-          </div>
+          <input
+            type="text"
+            placeholder="Name"
+            className="input-bordered input my-2 w-full max-w-xs"
+            {...register("name")}
+          />
+          <input
+            className="input-bordered input my-2 w-full max-w-xs"
+            type="date"
+            {...register("expiry")}
+          />
+          <input
+            type="text"
+            placeholder="Quantity"
+            className="input-bordered input my-2 w-full max-w-xs"
+            {...register("quantity")}
+          />
+          <input
+            type="text"
+            placeholder="Your Address"
+            className="input-bordered input my-2 w-full max-w-xs"
+            {...register("address")}
+          />
+          <input
+            type="text"
+            placeholder="Contact"
+            className="input-bordered input my-2 w-full max-w-xs"
+            {...register("contact")}
+          />
+          <select
+            className="select-bordered select my-2 w-full max-w-xs"
+            {...register("foodType")}
+          >
+            <option disabled selected>
+              Food Type
+            </option>
+            <option value="VEG" className="flex w-full justify-center text-green  ">Veg</option>
+            <option value="NON_VEG">Non Veg</option>
+          </select>
           <button className="btn-primary btn" type="submit">
             Submit
-          </button>
+          </button> 
         </form>
       </div>
-    </>
+     
+      </div>
+      <Footer/>
+    </div>
+    
   );
 };
 
 export default Donate;
+export const Item = () => {
+  const navigate = useNavigate();
+  return (
+      <>
+        <button onClick={() => navigate(-1)}>Back</button> 
+      </>
+  );
+};

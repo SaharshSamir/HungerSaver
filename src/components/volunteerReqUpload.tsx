@@ -4,11 +4,11 @@ import { useRouter } from "next/router.js";
 import ErrorAlert from "@components/elements/ErrorAlert";
 import { clientEnv } from "../env/schema.mjs";
 import { trpc } from "../utils/trpc";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Loader from "./layouts/Loader.jsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
-import "react-phone-number-input/style.css";
+import {useForm} from "react-hook-form";
+import type { SubmitHandler, FieldValues } from "react-hook-form";
 interface FormShape {
   name: string;
   phoneInput: string;
@@ -30,7 +30,7 @@ const inputSchema = z.object({
       : z.instanceof(FileList).refine((file) => file.length !== 0, {
           message: "File is required",
         }),
-});
+})
 
 const VolunteerReqUpload: React.FC = () => {
   const session = useSession();
@@ -47,7 +47,7 @@ const VolunteerReqUpload: React.FC = () => {
   // const user = trpc.auth.getUser.useQuery();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader/>;
   }
   // if (Object.keys(errors).length > 0) alert(JSON.stringify(errors));
   if (data) {
