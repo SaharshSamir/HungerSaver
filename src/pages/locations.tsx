@@ -1,3 +1,5 @@
+import Navbar from "@components/layouts/navbar";
+
 interface Location {
   address: string,
   name: string,
@@ -5,29 +7,65 @@ interface Location {
   contact: string
 }
 
+const locationsArr: Location[] = [
+  {
+    name: "Pisoli Warehouse",
+    address: "FW22+MXX, Pisoli, Pune, Maharashtra 411060",
+    contact: "3819284761",
+    map: "https://goo.gl/maps/2VhXFpSqqkyKKkT57"
+  },
+  {
+    name: "Kavita Warehousing",
+    address: "FV2W+976, Katraj-Hadapsar Bypass Rd, Danny Mehata Nagar Industrial Area, Kondhwa Budruk",
+    contact: "9384019210",
+    map: "https://goo.gl/maps/CKt5fX6Ndmhx7uFh8",
+  },
+  {
+    name: "Kavita Warehousing",
+    address: "CWV6+X8W, Shree Siddhivinayak Meera, Undri, Pune, Maharashtra 411048",
+    contact: "7492959412",
+    map: "https://goo.gl/maps/bAee6UwNAXWG5TdK7",
+  },
+  {
+    name: "Avibo Warehouse",
+    address: "FW23+V3R, Pisoli, Pune, Maharashtra 411060",
+    contact: "8374651056",
+    map: "https://goo.gl/maps/fpPgHfoaH3tSGziT7",
+  },
+]
 
 const Locations = () => {
   return (
-    <div>
-      <p>Warehouse Locations</p>
+    <>
+
+      <Navbar />
+    <div className="flex flex-col justify-center items-center">
+      <p className="text-4xl my-5">Warehouse Locations</p>
       
-          <table className="table w-full">
+          <table className="table w-5/6">
             <thead>
               <tr>
-                <th></th>
                 <th>Name</th>
                 <th>Address</th>
-                <th>Ordered At</th>
-                <th>Food Type</th>
-                <th></th>
+                <th>Contact</th>
+                <th>Location</th>
               </tr>
             </thead>
             <tbody>
-                  <tr key={idx}>
+              {locationsArr.map(loc => {
+                return (
+                  <tr>
+                    <td>{loc.name}</td>
+                    <td>{loc.address}</td>
+                    <td>{loc.contact}</td>
+                    <td><a href={loc.map}>📍</a></td>
                   </tr>
+                )
+              })}
             </tbody>
           </table>
     </div>
+    </>
   )
 }
 

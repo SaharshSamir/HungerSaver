@@ -15,24 +15,40 @@ const AdminHomePage = ({ user, isLoading }: Props) => {
   const router = useRouter();
   if (isLoading) return <Loader />;
   return (
-    <div style={{
-      backgroundImage: `url(/vol.png)`,
-      backgroundSize: "170%",
-      fontFamily: "sans-serif",
-    }}>
+    <div
+      style={{
+        backgroundImage: `url(/vol.png)`,
+        backgroundSize: "170%",
+        fontFamily: "sans-serif",
+      }}
+    >
       <Navbar />
-      <div className="flex h-[80vh] w  items-center justify-center pl-0 pr-10">
+      <div className="w flex h-[80vh]  items-center justify-center pl-0 pr-10">
         <div className="flex">
           <div className="mb-4">
-            <div className="w-full">
+            <div className="flex w-full">
               <div className="my-10 w-full max-w-xs">
-                <Link href="/admin/volunteerReqs" className="flex my-2 w-full rounded p-20  green-glassmorphism text-green animate-slide-in font-semibold">
+                <Link
+                  href="/admin/volunteerReqs"
+                  className="green-glassmorphism text-green animate-slide-in my-2 flex  w-full rounded p-20 font-semibold"
+                >
                   Volunteer Requests
                 </Link>
-                </div>
-                <div className="my-10 w-full max-w-xs ">
-                <Link href="/admin/verificationReqs" className="flex my-2 w-full rounded p-20  green-glassmorphism text-green animate-slide-in font-semibold">
+              </div>
+              <div className="my-10 mx-7 w-full max-w-xs ">
+                <Link
+                  href="/admin/verificationReqs"
+                  className="green-glassmorphism text-green animate-slide-in my-2 flex  w-full rounded p-20 font-semibold"
+                >
                   Verification Requests
+                </Link>
+              </div>
+              <div className="my-10 w-full max-w-xs">
+                <Link
+                  href=""
+                  className="green-glassmorphism text-green animate-slide-in my-2 flex  w-full rounded p-20 font-semibold"
+                >
+                  Order Predictions
                 </Link>
               </div>
             </div>

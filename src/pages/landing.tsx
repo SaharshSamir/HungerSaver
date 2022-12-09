@@ -43,8 +43,8 @@ const Landing = () => {
                 >
                   Get started
                 </a>
-                <a className="green-glassmorphism" href="#section2" onClick={() => router.push("/locations")}>
-                  Know More
+                <a className="green-glassmorphism" href="/locations" onClick={() => router.push("/locations")}>
+                  Our Locations
                 </a>
               </section>
             </div>
