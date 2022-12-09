@@ -7,7 +7,7 @@ const Dashboard = () => {
     <>
       {/* <AdminVolReqs />
       <AdminVerificationReqs /> */}
-      <Link href="/admin/VolunteerReqs" className="btn">
+      <Link href="/admin/volunteerReqs" className="btn">
         Volunteer Requests
       </Link>
       <Link href="/admin/verificationReqs" className="btn">

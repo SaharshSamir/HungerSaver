@@ -24,7 +24,7 @@ const Navbar = () => {
     <div className=" bg-green-800 p-4">
       <div className="flex w-full justify-between ">
       <div className="md:flex-[0.1] flex-initial justify-center items-center">
-        <img src="../../../assets/images/logo_white.png" alt="logo" className="w-10 cursor-pointer" />
+        <Image src="/logo_white.png" alt="logo" width="1000" height="1000" className="w-10 cursor-pointer" />
       </div>
         <div onClick={() => router.push("/")} className="flex items-center justify-center text-2xl font-semibold text-slate-50 cursor-pointer">
           Hunger Saver

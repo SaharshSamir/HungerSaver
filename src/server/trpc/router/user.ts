@@ -6,23 +6,44 @@ const FoodTypeArray = Object.keys(FoodType).filter((v) => isNaN(Number(v)));
 export const userRouter = router({
   //create a new volunteer request
   newVolunteerReq: publicProcedure
-    .input(z.object({ url: z.string().nullish() }))
+    .input(z.object({
+      url: z.string().nullish(),
+      name: z.string(),
+      contact: z.string(),
+      docType: z.string(),
+      dob: z.date(),
+      city: z.string()
+    }))
     .mutation(async ({ input, ctx }) => {
 
       const { prisma, session } = ctx;
 
-      const user = await prisma.user.findFirst({
+      const updatedUser = await prisma.user.update({
         where: {
-          email: session?.user?.email
+          email: session?.user?.email || ""
+        },
+        data: {
+          contact: input.contact,
+          dob: input.dob,
+          city: input.city,
         }
       })
 
+
       const newVolunteerReq = await prisma.volunteerRequest.create({
         data: {
+          name: input.name,
+          contact: input.contact,
+          dob: input.dob,
+          city: input.city,
+          documentType: input.docType,
           documennt: input.url,
           user: {
-            connect: { id: user?.id }
+            connect: { id: updatedUser?.id }
           }
+        },
+        include: {
+          user: true
         }
       })
       if (newVolunteerReq) {
@@ -76,13 +97,15 @@ export const userRouter = router({
     .input(z.object({
       name: z.string(),
       expiry: z.date(),
-      quantity: z.string(),
+      quantity: z.number(),
+      city: z.string(),
       address: z.string(),
       contact: z.string(),
       foodType: z.nativeEnum(FoodType),
     }))
     .mutation(async ({ ctx, input }) => {
       const { prisma, session } = ctx;
+      console.log(input);
       const user = await prisma.user.findFirst({
         where: {
           email: session.user.email
@@ -94,6 +117,7 @@ export const userRouter = router({
           name: input.name,
           expiry: input.expiry,
           quantity: input.quantity,
+          city: input.city,
           address: input.address,
           contact: input.contact,
           foodType: input.foodType,
@@ -114,45 +138,53 @@ export const userRouter = router({
       if (donations.length === 0) return [];
       return donations;
     }),
-    newVerificationReq: protectedProcedure
+  newVerificationReq: protectedProcedure
     .input(z.object({
-      url: z.string()
+      url: z.string(),
+      city: z.string(),
+      registrationNo: z.string()
     }))
-    .mutation(async ({ctx, input}) => {
-      const{prisma, session} = ctx;
-      const {url} = input; 
+    .mutation(async ({ ctx, input }) => {
+      const { prisma, session } = ctx;
+      const { url } = input;
 
-      const user = await prisma.user.findFirst({
+      const user = await prisma.user.update({
         where: {
-          email: session?.user?.email
+          email: session?.user?.email || ""
+        },
+        data: {
+          registrationNo: input.registrationNo,
+          city: input.city
         }
       })
 
       const newVerificationReq = await prisma.verificationRequest.create({
         data: {
           documennt: url,
+          registrationNo: input.registrationNo,
+          city: input.city,
           user: {
-            connect: {id: user?.id}
+            connect: { id: user?.id }
           }
         }
       });
 
-      if(newVerificationReq) return "OK"
+      if (newVerificationReq) return "OK"
       return "NOT_OK"
     }),
-    getVerificationReqs: protectedProcedure
-    .query(async ({ctx}) => {
-      const {prisma} = ctx;
-      const verficationReqs = await prisma.verificationRequest.findMany({include: {user: true}});
+  getVerificationReqs: protectedProcedure
+    .query(async ({ ctx }) => {
+      const { prisma } = ctx;
+      const verficationReqs = await prisma.verificationRequest.findMany({ include: { user: true } });
       return verficationReqs;
     }),
-    handleVerificationReq: protectedProcedure
+  handleVerificationReq: protectedProcedure
     .input(z.object({
       reqId: z.string(),
       isApproved: z.boolean()
     }))
-    .mutation(async ({ctx, input}) => {
-      const {prisma} = ctx;
+    .mutation(async ({ ctx, input }) => {
+      const { prisma } = ctx;
 
       const verReq = await prisma.verificationRequest.delete({
         where: {
@@ -164,7 +196,7 @@ export const userRouter = router({
       });
 
       const reqUser = verReq.user;
-      if(input.isApproved){
+      if (input.isApproved) {
         reqUser.type = "CLIENT"
       }
       await prisma.user.update({

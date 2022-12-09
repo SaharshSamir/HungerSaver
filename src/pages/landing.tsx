@@ -4,7 +4,7 @@ import Footer from "@components/layouts/Footer";
 import { useRouter } from "next/router";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
-import Images from '../../assets/images/rice-bowl.png';
+import Image from "next/image";
 
 const Landing = () => {
   const { data: sessionData } = useSession();
@@ -14,14 +14,14 @@ const Landing = () => {
       router.push("/");
       //return (<Landing />)
     }
-  }, [sessionData])
+  }, [sessionData, router]);
   return (
     <>
       <body>
         <Navbar/>
         <section className="text-gray-600 body-font">
           <div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
-            <img className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="tfh-removebg-preview.png" />
+            <Image className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" width="1000" height="1000" src="/tfh-removebg-preview.png" />
             <div className="text-center lg:w-2/3 w-full">
               <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-green-900" />
               <section id="buttons" />
@@ -42,7 +42,7 @@ const Landing = () => {
             <div className="flex flex-wrap -m-4 text-center">
               <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
                 <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                  <img className="Images" src={Images} width="250" height="250" alt={"rice-bowl"} />
+                  <Image  src={"/rice-bowl.png"} width="250" height="250" alt={"rice-bowl"} />
                   <h2 className="title-font font-medium text-3xl text-gray-900">1.3 Billion Tonnes</h2>
                   <p className="leading-relaxed">Food wasted across the globe</p>
                 </div>
@@ -50,7 +50,7 @@ const Landing = () => {
 
               <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
                 <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                  <img src="money.png" width="250" height="250" />
+                  <Image src="/money.png" width="250" height="250" alt={"money"}/>
                   <h2 className="title-font font-medium text-3xl text-gray-900">$1 trillion</h2>
                   <p className="leading-relaxed">Amount value of food wasted</p>
                 </div>
@@ -58,7 +58,7 @@ const Landing = () => {
 
               <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
                 <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                  <img className="Images" src={require("../../assets/images/social-group.png")} width="250" height="250" alt={"social-group"}/>
+                  <Image className="Images" src="/social-group.png" width="250" height="250" alt={"social-group"}/>
                   <h2 className="title-font font-medium text-3xl text-gray-900">800 million</h2>
                   <p className="leading-relaxed">People sleep hungry every night</p>
                 </div>
@@ -66,7 +66,7 @@ const Landing = () => {
 
               <div className="p-4 md:w-1/4 sm:w-1/2 w-full">
                 <div className="border-2 border-gray-200 px-4 py-6 rounded-lg">
-                  <image imageRendering={"trolley.png"} width="250" height="250" />
+                  <Image src="/trolley.png" width="250" height="250" alt={"trolley"} />
                   <h2 className="title-font font-medium text-3xl text-gray-900">40% Farm Waste</h2>
                   <p className="leading-relaxed">Wastage due to inefficient supply</p>
                 </div>
@@ -87,7 +87,7 @@ const Landing = () => {
               <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-green-500 text-white relative z-10 title-font font-medium text-sm">1</div>
               <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                 <div className="flex-shrink-0 w-24 h-24 bg--100 text--500 rounded-full inline-flex items-center justify-center">
-                  <img src="in.png" width="55" height="40" />
+                  <Image src="/in.png" width="55" height="40" alt={"in"}/>
                 </div>
                 <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
                   <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">Register</h2>
@@ -102,7 +102,7 @@ const Landing = () => {
               <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-green-500 text-white relative z-10 title-font font-medium text-sm">2</div>
               <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                 <div className="flex-shrink-0 w-24 h-24 bg--100 text--500 rounded-full inline-flex items-center justify-center">
-                  <img src="porridge-pongal.png" width="55" height="40" />
+                  <Image src="/porridge-pongal.png" width="55" height="40" alt={"porridge-pongal"}/>
                 </div>
                 <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
                   <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">Donate/Order</h2>
@@ -117,7 +117,7 @@ const Landing = () => {
               <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-green-500 text-white relative z-10 title-font font-medium text-sm">3</div>
               <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                 <div className="flex-shrink-0 w-24 h-24 bg--100 text--500 rounded-full inline-flex items-center justify-center">
-                  <img src="verified.png" width="55" height="40" />
+                  <Image src="/verified.png" width="55" height="40" alt={"verified"} />
                 </div>
                 <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
                   <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">Check Authenticity</h2>
@@ -132,7 +132,7 @@ const Landing = () => {
               <div className="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-green-500 text-white relative z-10 title-font font-medium text-sm">4</div>
               <div className="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
                 <div className="flex-shrink-0 w-24 h-24 bg--100 text--500 rounded-full inline-flex items-center justify-center">
-                  <img src="scooter.png" width="55" height="40" />
+                  <Image src="/scooter.png" width="55" height="40" alt={"scooter"} />
                 </div>
                 <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
                   <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">Deliver</h2>

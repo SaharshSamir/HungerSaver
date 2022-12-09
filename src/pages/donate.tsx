@@ -1,5 +1,6 @@
 /* When asking a user to donate food, we ask in the details of the food and add the food item to out list of donations (Donateion table). We also link the user to the donation they have made.
  */
+import type { FoodType } from "@prisma/client";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import { trpc } from "@utils/trpc";
 import { useSession } from "next-auth/react";
@@ -10,13 +11,16 @@ import Loader from "@components/layouts/Loader";
 import Navbar from "@components/layouts/navbar";
 import {useNavigate} from "react-router-dom";
 
+// type SubmitHandlerArgs = FormData
+
 interface FormData {
   name: string;
   expiry: string;
   quantity: string;
   address: string;
   contact: string;
-  foodType: string;
+  foodType: FoodType;
+  city: string;
 }
 
 const Donate = () => {
@@ -27,11 +31,11 @@ const Donate = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
   const { mutate, data, isLoading } = trpc.user.newDonation.useMutation();
 
-  const onSubmit: SubmitHandler<FieldValues | FormData> = (input) => {
+  const onSubmit: SubmitHandler<FieldValues & FormData> = (input) => {
     console.log(input);
 
     mutate({
@@ -40,7 +44,8 @@ const Donate = () => {
       contact: input.contact,
       address: input.address,
       foodType: input.foodType,
-      quantity: input.quantity,
+      quantity: Number.parseInt(input.quantity),
+      city: input.city,
     });
   };
 
@@ -65,7 +70,7 @@ const Donate = () => {
         display: 'flow-root',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '50vh',
+        height: '100vh',
       }}><p className="flex w-full justify-center text-4xl ">Donate Food</p>
       <div className="flex w-full items-center justify-center" >
         <form
@@ -116,8 +121,9 @@ const Donate = () => {
           </button> 
         </form>
       </div>
-      <Footer/>
+     
       </div>
+      <Footer/>
     </div>
     
   );

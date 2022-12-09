@@ -41,7 +41,8 @@ const AdminVerificationReqs = () => {
                 <th></th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Document Type</th>
+                <th>Registration No</th>
+                <th>City</th>
                 <th>Document</th>
                 <th>Approve</th>
               </tr>
@@ -84,7 +85,8 @@ const SingleReq = ({ data, idx }: DataProps) => {
       <th>{idx + 1}</th>
       <td>{data.user.name}</td>
       <td>{data.user.email}</td>
-      <td>Aadhar</td>
+      <td>{data.registrationNo}</td>
+      <td>{data.city}</td>
       <td>
         <Modal buttonTitle="View Document">
           <Image

@@ -47,6 +47,10 @@ model User {
   email               String?              @unique
   emailVerified       DateTime?
   image               String?
+  contact             String?
+  dob                 DateTime?
+  city                String?
+  registrationNo      String?
   type                UserType             @default(DONATOR)
   donations           Donation[]
   accounts            Account[]
@@ -70,7 +74,8 @@ model Donation {
   id       String   @id @default(cuid())
   name     String
   expiry   DateTime
-  quantity String
+  quantity Int
+  city     String
   address  String
   contact  String
   foodType FoodType
@@ -81,18 +86,25 @@ model Donation {
 
 //request to admin to become a volunteer
 model VolunteerRequest {
-  id        String  @id @default(cuid())
-  documennt String?
-  user      User    @relation(fields: [userId], references: [id])
-  userId    String  @unique
+  id           String    @id @default(cuid())
+  name         String?
+  contact      String?
+  dob          DateTime?
+  city         String?
+  documennt    String?
+  documentType String?
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String    @unique
 }
 
 //request to admin to order donations
 model VerificationRequest {
-  id        String  @id @default(cuid())
-  documennt String?
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String  @unique
+  id             String  @id @default(cuid())
+  documennt      String?
+  registrationNo String?
+  city           String?
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String  @unique
 }
 
 model Order {
