@@ -88,7 +88,7 @@ const SingleReq = ({ data, idx }: DataProps) => {
   console.log("user age year", data.user.dob?.getFullYear());
   console.log("current year", data.user.dob?.getFullYear());
   const age =
-    (data.user.dob?.getFullYear() || 0) - (new Date().getFullYear() || 0);
+    (new Date().getFullYear() || 0) - (data.user.dob?.getFullYear() || 0);
 
   return (
     <tr key={idx}>

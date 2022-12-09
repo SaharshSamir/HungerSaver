@@ -84,14 +84,16 @@ const Donate = () => {
             >
               <div className="flex">
                 <div className="mx-2">
-                  <div className="my-2 w-full max-w-xs ">
-                    <label className="text-sm text-slate-600">Food Name</label>
-                    <input
-                      type="text"
-                      placeholder="Food Name"
-                      className="input-bordered input my-2 w-full max-w-xs"
-                      {...register("name")}
-                    />
+                  <div className="w-full">
+                    <div className="my-2 w-full max-w-xs ">
+                      <label className="text-sm text-slate-600">Food Name</label>
+                      <input
+                        type="text"
+                        placeholder="Food Name"
+                        className="input-bordered input my-2 w-full max-w-xs"
+                        {...register("name")}
+                      />
+                    </div>
                   </div>
                   <div className="my-2 w-full max-w-xs ">
                     <label className="text-sm text-slate-600">
@@ -113,6 +115,7 @@ const Donate = () => {
                     />
                   </div>
                 </div>
+                {/*}----------------------------------------------------SPLIT------------------------------*/}
                 <div className="mx-2">
                   <div className="my-2 w-full max-w-xs ">
                     <label className="text-sm text-slate-600">
@@ -123,6 +126,17 @@ const Donate = () => {
                       placeholder="Your Address"
                       className="input-bordered input my-2 w-full max-w-xs"
                       {...register("address")}
+                    />
+                  </div>
+                  <div className="my-2 w-full max-w-xs ">
+                    <label className="text-sm text-slate-600">
+                      Your City
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="City"
+                      className="input-bordered input my-2 w-full max-w-xs"
+                      {...register("city")}
                     />
                   </div>
                   <div className="my-2 w-full max-w-xs ">
