@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { trpc } from "@utils/trpc";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Landing = () => {
   const { data: sessionData } = useSession();
@@ -43,9 +44,13 @@ const Landing = () => {
                 >
                   Get started
                 </a>
-                <a className="green-glassmorphism" href="/locations" onClick={() => router.push("/locations")}>
+                <Link
+                  className="green-glassmorphism"
+                  href="/locations"
+                  onClick={() => router.push("/locations")}
+                >
                   Our Locations
-                </a>
+                </Link>
               </section>
             </div>
           </div>

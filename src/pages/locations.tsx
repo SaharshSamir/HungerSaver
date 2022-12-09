@@ -1,4 +1,5 @@
 import Navbar from "@components/layouts/navbar";
+import Link from "next/link";
 
 interface Location {
   address: string,
@@ -52,13 +53,13 @@ const Locations = () => {
               </tr>
             </thead>
             <tbody>
-              {locationsArr.map(loc => {
+              {locationsArr.map((loc, idx)=> {
                 return (
-                  <tr>
+                  <tr key={idx}>
                     <td>{loc.name}</td>
                     <td>{loc.address}</td>
                     <td>{loc.contact}</td>
-                    <td><a href={loc.map}>📍</a></td>
+                    <td><Link href={loc.map}>📍</Link></td>
                   </tr>
                 )
               })}
