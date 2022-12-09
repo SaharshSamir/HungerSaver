@@ -1,36 +1,29 @@
 import VolunteerReqUpload from "@components/volunteerReqUpload";
 import Navbar from "@components/layouts/navbar";
 import Footer from "@components/layouts/Footer";
-
-import volunteer from '../../assets/images/volunteer_girl.png';
+import Image from "next/image";
 
 const Volunteer = () => {
   return (
-    <div>
+    <div className="h-screen">
       <Navbar />
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '50vh',
-      }}>
-      <img alt='volunteer' style={{ width: 100 }} src={String(volunteer)} />
+      <div className="flex w-full">
+        <div className="my-3 flex w-full items-center justify-center border-r-[1px] border-teal-600">
+          <Image
+            src="/volunteer_girl.png"
+            height={500}
+            width={500}
+            alt="volunteer girl"
+          />
+        </div>
+        <div className="flex w-full items-center justify-center p-4">
+          {/* <p className="text-lg">
+            Please upload any form of identification and we will get back to you
+          </p> */}
+          <VolunteerReqUpload />
+        </div>
       </div>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center', justifyContent: 'center',}}>
-      <p className="text-lg">
-        Please upload any form of identification and we will get back to you
-      </p>
-      </div>
-      <div style={{display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '50vh',
-      }}>
-      <VolunteerReqUpload />
-      </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import AuthButton from "@components/AuthButton";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import logo from "../../../assets/images/logo_white.png";
+import { useEffect } from "react";
 
 interface User {
   name: string;
@@ -14,19 +15,33 @@ interface User {
 
 const Navbar = () => {
   const { data: sessionData } = useSession();
+  const router = useRouter();
+  // useEffect(() => {
+  //   if (!sessionData?.user) {
+  //     router.push("/landing");
+  //   }
+  // }, [router, sessionData]);
   const user: User = {
     name: sessionData?.user?.name ?? "",
     email: sessionData?.user?.email ?? "",
     image: sessionData?.user?.image ?? "",
   };
-  const router = useRouter();
   return (
     <div className=" bg-green-800 p-4">
       <div className="flex w-full justify-between ">
-      <div className="md:flex-[0.1] flex-initial justify-center items-center">
-        <Image src="/logo_white.png" alt="logo" width="1000" height="1000" className="w-10 cursor-pointer" />
-      </div>
-        <div onClick={() => router.push("/")} className="flex items-center justify-center text-2xl font-semibold text-slate-50 cursor-pointer">
+        <div className="flex-initial items-center justify-center md:flex-[0.1]">
+          <Image
+            src="/logo_white.png"
+            alt="logo"
+            width="1000"
+            height="1000"
+            className="w-10 cursor-pointer"
+          />
+        </div>
+        <div
+          onClick={() => router.push("/")}
+          className="flex cursor-pointer items-center justify-center text-2xl font-semibold text-slate-50"
+        >
           Hunger Saver
         </div>
         <div className="">
@@ -41,7 +56,13 @@ const Navbar = () => {
   );
 };
 
-const AuthedNavItems = ({ user, sessionData }: { user: User, sessionData: Session }) => {
+const AuthedNavItems = ({
+  user,
+  sessionData,
+}: {
+  user: User;
+  sessionData: Session;
+}) => {
   return (
     <div className="flex">
       <div className="mr-3 flex items-center justify-center text-lg font-medium text-slate-100">

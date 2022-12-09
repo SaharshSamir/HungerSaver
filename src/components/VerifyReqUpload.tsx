@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router.js";
 import { useForm } from "react-hook-form";
@@ -41,7 +40,7 @@ const VerifyReqUpload: React.FC = () => {
     trpc.user.newVerificationReq.useMutation();
 
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   if (data) {
@@ -77,11 +76,11 @@ const VerifyReqUpload: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <p>upload identification for verification</p>
+    <div className="flex h-full flex-col items-center justify-center">
+      <p className="flex w-full justify-center text-4xl ">Verify Account</p>
       <form onSubmit={handleSubmit(submitHandler)}>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Registration Number</label>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Registration Number</label>
           <input
             type="text"
             placeholder="Registration No"
@@ -92,8 +91,8 @@ const VerifyReqUpload: React.FC = () => {
             <ErrorAlert message={errors.registrationNo.message} />
           )}
         </div>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Your City</label>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Your City</label>
           <input
             type="text"
             placeholder="City"
@@ -102,8 +101,8 @@ const VerifyReqUpload: React.FC = () => {
           />
           {errors.city && <ErrorAlert message={errors.city.message} />}
         </div>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Upload Document</label>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Upload Document</label>
           <input
             type="file"
             className="file-input-bordered file-input w-full max-w-xs"
@@ -111,9 +110,11 @@ const VerifyReqUpload: React.FC = () => {
           />
           {errors.file && <ErrorAlert message={errors.file.message} />}
         </div>
-        <button type="submit" className="btn-primary btn max-w-xs">
-          Submit
-        </button>
+        <div className="flex justify-center">
+          <button type="submit" className="btn-primary btn w-60 max-w-sm">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

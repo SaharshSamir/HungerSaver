@@ -11,7 +11,11 @@ import Loader from "./layouts/Loader";
 const Dashboard = () => {
   const router = useRouter();
   const session = useSession();
-  const { data, isLoading, error } = trpc.auth.getUser.useQuery(undefined, {
+  const {
+    data,
+    isLoading,
+    error: userError,
+  } = trpc.auth.getUser.useQuery(undefined, {
     retry: 4,
   });
   useEffect(() => {
@@ -19,17 +23,21 @@ const Dashboard = () => {
       router.push("/");
     }
   }, [data?.type, router]);
+  useEffect(() => {
+    if (userError && userError.message === "UNAUTHORIZED") {
+      router.push("/");
+    }
+  }, [userError, router]);
   const { data: reqData, isLoading: isReqLoading } =
     trpc.user.getVolunteerReqs.useQuery();
   //if (!session.data?.user) return (<></>);
   console.log(data);
   if (isLoading || isReqLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
   return (
     <>
-      <p>Dashboard</p>
-      <p>somethihg</p>
+      <p className="my-10 w-full text-center text-4xl">Volunteer Requests</p>
       <div className="flex w-full justify-center">
         <div className="w-5/6 overflow-x-auto">
           <table className="table w-full">

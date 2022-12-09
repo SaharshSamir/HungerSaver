@@ -4,11 +4,11 @@ import React from "react";
 
 const Footer = () => (
   <div className="w-full flex md:justify-center justify-between items-center flex-col p-4 gradient-bg-footer">
-    <div className="w-full flex sm:flex-row flex-col justify-between items-center my-2">
+    {/* <div className="w-full flex sm:flex-row flex-col justify-between items-center my-2">
       <div className="flex flex-[0.5] justify-center items-center">
         
       </div>
-    </div>
+    </div> */}
 
     <div className="flex justify-center items-center flex-col mt-1">
       <p className="text-white text-sm text-center">Come join us and hear for the unexpected miracle</p>
@@ -19,7 +19,7 @@ const Footer = () => (
 
     <div className="sm:w-[90%] w-full flex justify-between items-center mt-5">
       <p className="text-white text-left text-xs">Group:TY-45</p>
-      <p className="text-white text-right text-xs">All rights reserved</p>
+      <p className="text-white text-right text-xs">©All rights reserved</p>
     </div>
   </div>
 );

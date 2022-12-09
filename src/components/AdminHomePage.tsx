@@ -3,6 +3,7 @@ import Navbar from "@components/layouts/navbar";
 import { trpc } from "@utils/trpc";
 import { User } from "@prisma/client";
 import Loader from "./layouts/Loader";
+import Link from "next/link";
 
 interface Props {
   user: User;
@@ -11,13 +12,16 @@ interface Props {
 
 const AdminHomePage = ({ user, isLoading }: Props) => {
   const router = useRouter();
-  if(isLoading) return (<Loader/>)
+  if (isLoading) return <Loader />;
   return (
     <>
       <Navbar />
-      <button className="btn" onClick={() => router.push("/admin/dashboard")}>
+      <Link href="/admin/volunteerReqs" className="btn">
         Volunteer Requests
-      </button>
+      </Link>
+      <Link href="/admin/verificationReqs" className="btn">
+        Verification Requests
+      </Link>
     </>
   );
 };

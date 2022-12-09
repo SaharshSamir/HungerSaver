@@ -25,7 +25,7 @@ const VolunteerHomepage = ({ user, isLoading }: Props) => {
   const router = useRouter();
 
   if (isLoading || isGetOrdersLoading || isNewVolLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   const handleVolunteer = (orderId: string, volunteerId: string) => {
@@ -42,7 +42,7 @@ const VolunteerHomepage = ({ user, isLoading }: Props) => {
   return (
     <>
       <Navbar />
-      <h1>Volunteer Homepage</h1>
+      <p className="my-10 w-full text-center text-4xl">Available Orders</p>
       {JSON.stringify(data)}
 
       <div className="mt-10 flex justify-center">

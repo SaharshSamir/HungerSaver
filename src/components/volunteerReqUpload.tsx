@@ -7,8 +7,9 @@ import { trpc } from "../utils/trpc";
 import Loader from "./layouts/Loader.jsx";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 import type { SubmitHandler, FieldValues } from "react-hook-form";
+import { useEffect } from "react";
 interface FormShape {
   name: string;
   phoneInput: string;
@@ -30,7 +31,7 @@ const inputSchema = z.object({
       : z.instanceof(FileList).refine((file) => file.length !== 0, {
           message: "File is required",
         }),
-})
+});
 
 const VolunteerReqUpload: React.FC = () => {
   const session = useSession();
@@ -43,11 +44,21 @@ const VolunteerReqUpload: React.FC = () => {
   //let formData: FormData;
   // const [file, setFile] = useState<string | Blob>();
   const router = useRouter();
-  const { mutate, isLoading, data } = trpc.user.newVolunteerReq.useMutation();
+  const {
+    mutate,
+    isLoading,
+    data,
+    error: volError,
+  } = trpc.user.newVolunteerReq.useMutation();
   // const user = trpc.auth.getUser.useQuery();
 
+  useEffect(() => {
+    if (volError && volError.message === "UNAUTHORIZED") {
+      router.push("/");
+    }
+  }, [volError, router]);
   if (isLoading) {
-    return <Loader/>;
+    return <Loader />;
   }
   // if (Object.keys(errors).length > 0) alert(JSON.stringify(errors));
   if (data) {
@@ -92,10 +103,10 @@ const VolunteerReqUpload: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <form onSubmit={handleSubmit(submitHandler)}>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Name</label>
+    <div className="flex w-full flex-col items-center justify-center">
+      <form className="" onSubmit={handleSubmit(submitHandler)}>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Name</label>
           <input
             type="text"
             placeholder="name"
@@ -104,8 +115,8 @@ const VolunteerReqUpload: React.FC = () => {
           />
           {errors.name && <ErrorAlert message={errors.name.message} />}
         </div>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Phone No</label>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Phone No</label>
           <input
             type="tel"
             placeholder="contact"
@@ -149,8 +160,8 @@ const VolunteerReqUpload: React.FC = () => {
             rules={{ required: true }}
           /> */}
         </div>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">
             City You Want to Volunteer in
           </label>
           <input
@@ -161,8 +172,8 @@ const VolunteerReqUpload: React.FC = () => {
           />
           {errors.city && <ErrorAlert message={errors.city.message} />}
         </div>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Date Of Birth</label>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Date Of Birth</label>
           <input
             type="date"
             placeholder="DOB"
@@ -171,8 +182,8 @@ const VolunteerReqUpload: React.FC = () => {
           />
           {errors.dob && <ErrorAlert message={errors.dob.message} />}
         </div>
-        <div className="my-2 w-full max-w-xs">
-          <label className="text-slate-600">Document Type</label>
+        <div className="my-4 w-full max-w-xs">
+          <label className="text-sm text-slate-600">Document Type</label>
           <select
             className="select-bordered select w-full max-w-xs"
             {...register("docType", { required: true })}
@@ -181,7 +192,7 @@ const VolunteerReqUpload: React.FC = () => {
               disabled
               value={undefined}
               selected
-              className="text-slate-600"
+              className="text-sm text-slate-600"
             >
               Document Type
             </option>
@@ -191,8 +202,8 @@ const VolunteerReqUpload: React.FC = () => {
           </select>
           {errors.docType && <ErrorAlert message={errors.docType.message} />}
         </div>
-        <div className="my-2 w-full max-w-xs ">
-          <label className="text-slate-600">Upload Document</label>
+        <div className="my-4 w-full max-w-xs ">
+          <label className="text-sm text-slate-600">Upload Document</label>
           <input
             type="file"
             className="file-input-bordered file-input w-full max-w-xs"
@@ -200,9 +211,11 @@ const VolunteerReqUpload: React.FC = () => {
           />
           {errors.file && <ErrorAlert message={errors.file.message} />}
         </div>
-        <button type="submit" className="btn-primary btn max-w-xs">
-          Submit
-        </button>
+        <div className="flex justify-center">
+          <button type="submit" className="btn-primary btn w-60 max-w-sm">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

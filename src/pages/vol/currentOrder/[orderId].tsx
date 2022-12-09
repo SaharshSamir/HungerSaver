@@ -46,7 +46,11 @@ const CurrentOrder = () => {
   const { data: orderData, error: orderError } = trpc.order.getOrder.useQuery({
     orderId: orderId || "",
   });
-
+  useEffect(() => {
+    if (orderError && orderError.message === "UNAUTHORIZED") {
+      router.push("/");
+    }
+  }, [orderError, router]);
   const {
     data: newOrderData,
     mutate,

@@ -34,58 +34,59 @@ interface Props {
 
 const DonorHome = ({ user, isLoading }: Props) => {
   const { data: sessionData } = useSession();
-  if (isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
   return (
-    <div className="relative h-screen" >
-      <Navbar  />
-      {sessionData?.user && !(user && user.type === "VOLUNTEER") ? (
-        <Link href="/becomeVol">
-          {" "}
-          <button
-            className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-            // onClick={() => {
-            //   return;
-            // }}
-          >
-            Become a volunteer
-          </button>
-        </Link>
-      ) : (
-        ""
-      )}
-      {sessionData?.user && !(user && user.type === "CLIENT") ? (
-        <Link href="/verifyAccount">
-          {" "}
-          <button
-          
-            className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-            onClick={() => {
-              return;
-            }}
-          >
-            Verify Account
-          </button>
-        </Link>
-      ) : (
-        ""
-      )}
-      {sessionData?.user ? (
-        <Link href="/donate">
-          <button
-            className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
-            onClick={() => {
-              return;
-            }}
-          >
-            Donate
-          </button>
-        </Link>
-      ) : (
-        ""
-      )}
-      <Donations />
-      <Footer/>
-    </div>
+    <>
+      <div className="relative h-[90vh]">
+        <Navbar />
+        {sessionData?.user && !(user && user.type === "VOLUNTEER") ? (
+          <Link href="/becomeVol">
+            {" "}
+            <button
+              className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
+              // onClick={() => {
+              //   return;
+              // }}
+            >
+              Become a volunteer
+            </button>
+          </Link>
+        ) : (
+          ""
+        )}
+        {sessionData?.user && !(user && user.type === "CLIENT") ? (
+          <Link href="/verifyAccount">
+            {" "}
+            <button
+              className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
+              onClick={() => {
+                return;
+              }}
+            >
+              Verify Account
+            </button>
+          </Link>
+        ) : (
+          ""
+        )}
+        {sessionData?.user ? (
+          <Link href="/donate">
+            <button
+              className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
+              onClick={() => {
+                return;
+              }}
+            >
+              Donate
+            </button>
+          </Link>
+        ) : (
+          ""
+        )}
+        <Donations />
+      </div>
+      <Footer />
+    </>
   );
 };
 

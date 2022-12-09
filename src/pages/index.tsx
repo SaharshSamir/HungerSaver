@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       router.push("/landing");
       //return (<Landing />)
     }
-  }, []);
+  }, [router, sessionData]);
   return <HomePageContent />;
 };
 
@@ -54,10 +54,11 @@ const HomePageContent = () => {
 };
 
 const Landing = () => {
-  return (<>
-    <h1>Landing Page</h1>
-    <Footer/>
+  return (
+    <>
+      <h1>Landing Page</h1>
+      <Footer />
     </>
-  )
-}
+  );
+};
 export default Home;
