@@ -43,7 +43,6 @@ const VolunteerHomepage = ({ user, isLoading }: Props) => {
     <>
       <Navbar />
       <p className="my-10 w-full text-center text-4xl">Available Orders</p>
-      {JSON.stringify(data)}
 
       <div className="mt-10 flex justify-center">
         <div className="w-5/6 overflow-x-auto">
