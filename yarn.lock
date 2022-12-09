@@ -149,6 +149,11 @@
   "resolved" "https://registry.npmjs.org/@prisma/engines/-/engines-4.5.0.tgz"
   "version" "4.5.0"
 
+"@remix-run/router@1.0.5":
+  "integrity" "sha512-my0Mycd+jruq/1lQuO5LBB6WTlL/e8DTCYWp44DfMTDcXz8DcTlgF0ISaLsGewt+ctHN+yA8xMq3q/N7uWJPug=="
+  "resolved" "https://registry.npmjs.org/@remix-run/router/-/router-1.0.5.tgz"
+  "version" "1.0.5"
+
 "@rushstack/eslint-patch@^1.1.3":
   "integrity" "sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg=="
   "resolved" "https://registry.npmjs.org/@rushstack/eslint-patch/-/eslint-patch-1.2.0.tgz"
@@ -1982,10 +1987,30 @@
   "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.7.1.tgz"
   "version" "4.7.1"
 
+"react-image-button@^1.0.6":
+  "integrity" "sha512-wmDUM6jURrjZXBcdYyn408b2NvMZwfpVysVQF19JK3jDizDCyeJ/usjHKFZK6L/7z60YAMceRkZc/702OrL5cQ=="
+  "resolved" "https://registry.npmjs.org/react-image-button/-/react-image-button-1.0.6.tgz"
+  "version" "1.0.6"
+
 "react-is@^16.13.1":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
+
+"react-router-dom@^6.4.5":
+  "integrity" "sha512-a7HsgikBR0wNfroBHcZUCd9+mLRqZS8R5U1Z1mzLWxFXEkUT3vR1XXmSIVoVpxVX8Bar0nQYYYc9Yipq8dWwAA=="
+  "resolved" "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.4.5.tgz"
+  "version" "6.4.5"
+  dependencies:
+    "@remix-run/router" "1.0.5"
+    "react-router" "6.4.5"
+
+"react-router@6.4.5":
+  "integrity" "sha512-1RQJ8bM70YEumHIlNUYc6mFfUDoWa5EgPDenK/fq0bxD8DYpQUi/S6Zoft+9DBrh2xmtg92N5HMAJgGWDhKJ5Q=="
+  "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.4.5.tgz"
+  "version" "6.4.5"
+  dependencies:
+    "@remix-run/router" "1.0.5"
 
 "react-ssr-prepass@^1.5.0":
   "integrity" "sha512-yFNHrlVEReVYKsLI5lF05tZoHveA5pGzjFbFJY/3pOqqjGOmMmqx83N4hIjN2n6E1AOa+eQEUxs3CgRnPmT0RQ=="

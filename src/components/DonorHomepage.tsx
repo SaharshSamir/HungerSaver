@@ -9,6 +9,7 @@ import AuthButton from "@components/AuthButton";
 import { User } from "@prisma/client";
 import Loader from "./layouts/Loader";
 import Footer from "./layouts/Footer";
+import ImageButton from 'react-image-button';
 
 /*
   reference: 
@@ -36,7 +37,7 @@ const DonorHome = ({ user, isLoading }: Props) => {
   const { data: sessionData } = useSession();
   if (isLoading) return <Loader/>;
   return (
-    <div className="min-h-screen">
+    <div className="relative">
       <Navbar  />
       {sessionData?.user && !(user && user.type === "VOLUNTEER") ? (
         <Link href="/becomeVol">
@@ -57,6 +58,7 @@ const DonorHome = ({ user, isLoading }: Props) => {
         <Link href="/verifyAccount">
           {" "}
           <button
+          
             className="rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100"
             onClick={() => {
               return;

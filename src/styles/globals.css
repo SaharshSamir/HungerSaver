@@ -43,8 +43,8 @@ body {
     radial-gradient(at 50% 100%, rgb(86, 173, 78) 0, transparent 40%);
 }
 
-.blue-glassmorphism {
-  background: rgb(39, 51, 89, 0.4);
+.green-glassmorphism {
+  background: rgba(98, 201, 124, 0.4);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);

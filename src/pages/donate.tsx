@@ -8,6 +8,7 @@ import Footer from "@components/layouts/Footer";
 import { useEffect } from "react";
 import Loader from "@components/layouts/Loader";
 import Navbar from "@components/layouts/navbar";
+import {useNavigate} from "react-router-dom";
 
 interface FormData {
   name: string;
@@ -58,11 +59,15 @@ const Donate = () => {
   }
 
   return (
-    <>
-    <div className="gradient-bg-welcome"></div>
+    <div > 
     <Navbar/>
-      <p className="flex w-full justify-center text-4xl ">Donate Food</p>
-      <div className="flex w-full items-center justify-center green-glassmorphism" >
+      <div style={{
+        display: 'flow-root',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '50vh',
+      }}><p className="flex w-full justify-center text-4xl ">Donate Food</p>
+      <div className="flex w-full items-center justify-center" >
         <form
           className="flex w-4/6 flex-col items-center justify-center"
           onSubmit={handleSubmit(onSubmit)}
@@ -108,12 +113,22 @@ const Donate = () => {
           </select>
           <button className="btn-primary btn" type="submit">
             Submit
-          </button>
+          </button> 
         </form>
       </div>
       <Footer/>
-    </>
+      </div>
+    </div>
+    
   );
 };
 
 export default Donate;
+export const Item = () => {
+  const navigate = useNavigate();
+  return (
+      <>
+        <button onClick={() => navigate(-1)}>Back</button> 
+      </>
+  );
+};
