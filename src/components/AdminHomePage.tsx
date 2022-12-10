@@ -45,7 +45,7 @@ const AdminHomePage = ({ user, isLoading }: Props) => {
               </div>
               <div className="my-10 w-full max-w-xs">
                 <Link
-                  href=""
+                  href="https://cd645b813813cb71.gradio.app/"
                   className="green-glassmorphism text-green animate-slide-in my-2 flex  w-full rounded p-20 font-semibold"
                 >
                   Order Predictions
